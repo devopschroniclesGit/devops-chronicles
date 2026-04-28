@@ -1,0 +1,33 @@
+# Docusaurus build output — never commit this
+# GitHub Actions builds it fresh on every push
+build/
+
+# Docusaurus cache — regenerated automatically
+.docusaurus/
+
+# Node modules — too large, reinstalled via npm ci
+node_modules/
+
+# Environment files — may contain secrets
+.env
+.env.local
+.env.production
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp

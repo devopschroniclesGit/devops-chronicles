@@ -1,0 +1,294 @@
+/* ── Hero ── */
+.hero {
+  background: #161f2e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  gap: 40px;
+  border-bottom: 3px solid #d13212;
+  flex-wrap: wrap;
+}
+
+.heroInner { flex: 1; min-width: 280px; }
+
+.heroBadge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(209,50,18,0.2);
+  color: #ff6b47;
+  border: 1px solid rgba(209,50,18,0.4);
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.heroTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.heroSub {
+  font-size: 14px;
+  color: #8fa3b8;
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 28px;
+}
+
+.heroCta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btnPrimary {
+  background: #0073bb;
+  color: #fff !important;
+  padding: 10px 22px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: background 0.2s;
+}
+.btnPrimary:hover { background: #005f9e; }
+
+.btnOutline {
+  background: transparent;
+  color: #c8d6e5 !important;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px 22px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-decoration: none !important;
+  transition: all 0.2s;
+}
+.btnOutline:hover { border-color: rgba(255,255,255,0.6); color: #fff !important; }
+
+/* ── Terminal ── */
+.terminal {
+  background: #0d1117;
+  border-radius: 8px;
+  width: 340px;
+  flex-shrink: 0;
+  border: 1px solid #30363d;
+  overflow: hidden;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.terminalBar {
+  background: #161b22;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #30363d;
+}
+
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+
+.terminalTitle {
+  margin-left: 8px;
+  font-size: 11px;
+  color: #484f58;
+}
+
+.terminalBody {
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #8fa3b8;
+}
+
+.prompt { color: #28c840; margin-right: 8px; }
+.comment { color: #484f58; }
+.cursor { animation: blink 1s step-end infinite; }
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ── Sections ── */
+.section { padding: 56px 40px; }
+
+.sectionInner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #0073bb;
+  margin-bottom: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 28px;
+  letter-spacing: -0.3px;
+}
+
+/* ── Course cards ── */
+.courseGrid { display: flex; flex-direction: column; gap: 14px; }
+
+.courseCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--ifm-background-surface-color);
+}
+.courseCard:hover {
+  border-color: #0073bb;
+  box-shadow: 0 0 0 3px rgba(0,115,187,0.08);
+}
+
+.courseIcon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.courseContent { flex: 1; }
+
+.courseMeta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.courseModules {
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  background: #e8f4fd;
+  color: #0073bb;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.courseLevel {
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-700);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.courseTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.courseDesc {
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.courseArrow {
+  color: var(--ifm-color-emphasis-400);
+  font-size: 18px;
+  align-self: center;
+}
+
+/* ── Project cards ── */
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.projectCard {
+  padding: 20px 22px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block;
+  background: var(--ifm-background-surface-color);
+  transition: border-color 0.2s;
+}
+.projectCard:hover { border-color: #0073bb; }
+
+.projectTag {
+  font-size: 10.5px;
+  font-family: 'IBM Plex Mono', monospace;
+  background: #e8f4fd;
+  color: #0073bb;
+  padding: 2px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.projectTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.projectDesc {
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Resource list ── */
+.resourceList { display: flex; flex-direction: column; gap: 2px; }
+
+.resourceRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: background 0.15s;
+}
+.resourceRow:hover { background: var(--ifm-color-emphasis-100); }
+
+.resourceTag {
+  font-size: 10.5px;
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-700);
+  padding: 2px 8px;
+  border-radius: 3px;
+  width: 90px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.resourceTitle {
+  font-size: 13.5px;
+  flex: 1;
+}
+
+.resourceArrow {
+  color: var(--ifm-color-emphasis-400);
+}
+
+/* ── Bottom strip ── */
+.strip {
+  text-align: center;
+  padding: 32px 20px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-500);
+}
