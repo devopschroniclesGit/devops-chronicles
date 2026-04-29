@@ -84,7 +84,8 @@ const config = {
         title: 'DevOps chronicles',
         logo: {
           alt: 'devopschronicles',
-          src: 'img/logos.svg',
+          src: 'img/logo-light.png',
+	  srcDark: 'img/logo-dark.png',
         },
         items: [
           {
