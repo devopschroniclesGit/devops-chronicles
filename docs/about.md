@@ -63,4 +63,4 @@ If you are learning DevOps, working through your first infrastructure role, or t
 
 ## Get In Touch
 
-Found an error, have a question, or want to discuss an architecture problem? Raise an issue on [GitHub](https://github.com/your-username/devops-chronicles) or connect on LinkedIn.
+Found an error, have a question, or want to discuss an architecture problem? Raise an issue on [GitHub](https://github.com/devopschroniclesgit/) or connect on LinkedIn.

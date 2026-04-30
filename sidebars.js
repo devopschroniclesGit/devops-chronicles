@@ -24,6 +24,11 @@ const sidebars = {
           label: 'Cloud Infrastructure',
           items: [
             'courses/cloud-infra/intro',
+	    'courses/cloud-infra/module-1-vpc-design-principles',
+	    'courses/cloud-infra/module-2-security-groups-iam',
+	    'courses/cloud-infra/module-3-load-balancing-scaling',
+	    'courses/cloud-infra/module-4-infrastructure-as-code-terraform',
+	    'courses/cloud-infra/module-5-failure-simulation',
           ],
         },
       ],
