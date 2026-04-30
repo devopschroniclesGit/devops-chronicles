@@ -39,9 +39,9 @@ const sidebars = {
       collapsed: false,
       items: [
         'projects/finpay/finpay-api',
-        //'projects/case-studies/index',
-       // 'projects/security/index',
-       // 'projects/monitoring/index',
+        'projects/case-studies/index',
+        'projects/security/index',
+        'projects/monitoring/index',
       ],
     },
     {
