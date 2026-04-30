@@ -640,3 +640,118 @@ a.badge {
 body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+/* ═══════════════════════════════════════════════════════════
+   FIXES — add these at the very bottom of src/css/custom.css
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── FIX 1: Light mode text clarity ────────────────────────
+   Remove the 300-weight that made body text look washed out.
+   Docs content needs solid 400 weight at full contrast.       */
+
+:root {
+  --ifm-font-color-base: #16191f;      /* near-black — clear on white */
+  --ifm-font-weight-base: 400;
+}
+
+.markdown p,
+.markdown li,
+.markdown td,
+.markdown blockquote,
+article p,
+article li {
+  font-weight: 400;
+  color: var(--ifm-font-color-base);
+  line-height: 1.8;
+}
+
+/* Slightly muted secondary text but still readable */
+.markdown blockquote {
+  color: #37475a;
+  border-left: 4px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  padding: 0.75rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+}
+
+[data-theme='dark'] .markdown p,
+[data-theme='dark'] .markdown li,
+[data-theme='dark'] .markdown td,
+[data-theme='dark'] article p,
+[data-theme='dark'] article li {
+  color: #c8d6e5;   /* bright enough on dark bg */
+}
+
+[data-theme='dark'] .markdown blockquote {
+  color: #aab7b8;
+  border-left-color: #37475a;
+  background: #1b2836;
+}
+
+/* Headings — crisp in both modes */
+[data-theme='light'] h1,
+[data-theme='light'] h2,
+[data-theme='light'] h3,
+[data-theme='light'] h4 {
+  color: #16191f;
+}
+
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4 {
+  color: #eaf0f6;
+}
+
+/* ── FIX 2: Footer — deep near-black like the mockup ────────
+   Replaces the #232f3e navy with the richer #0a0a0b base.     */
+
+.footer {
+  background: #0a0a0b !important;
+  border-top: 2px solid #ff9900;
+}
+
+.footer__title {
+  color: #f0efed;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.footer__link-item {
+  color: #8a8785;
+  font-size: 14px;
+  transition: color 0.15s;
+}
+
+.footer__link-item:hover {
+  color: #ff9900;
+  text-decoration: none;
+}
+
+.footer__copyright {
+  color: #4a4845;
+  font-size: 12px;
+  font-family: 'Source Code Pro', monospace;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 1.25rem;
+  margin-top: 2rem;
+}
+
+/* ── FIX 3: Inline code contrast in light mode ──────────────
+   The #f4f4f4 background with default text was hard to read.  */
+
+[data-theme='light'] code {
+  color: #c0392b;         /* AWS-style red for inline code */
+  background: #fdf2f2;
+  border: 1px solid #f0c4be;
+}
+
+/* Code inside code blocks should not get the red treatment */
+[data-theme='light'] .prism-code code,
+[data-theme='light'] .codeBlock_node_modules code {
+  color: inherit;
+  background: transparent;
+  border: none;
+}
