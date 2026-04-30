@@ -364,4 +364,4 @@ You are ready for Module 4 when:
 
 ---
 
-**Next:** [Module 4 – Infrastructure as Code with Terraform](courses/cloud-infra/module-4-infrastructure-as-code-terraform)
+**Next:** [Module 4 – Infrastructure as Code with Terraform](./module-4-infrastructure-as-code-terraform)

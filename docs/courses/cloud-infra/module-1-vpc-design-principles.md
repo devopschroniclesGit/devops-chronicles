@@ -333,4 +333,4 @@ You are ready for Module 2 when:
 
 ---
 
-**Next:** [Module 2 – Security Groups & IAM Strategy](courses/cloud-infra/module-2-security-groups-iam)
+**Next:** [Module 2 – Security Groups & IAM Strategy](./module-2-security-groups-iam)

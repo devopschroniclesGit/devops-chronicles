@@ -351,4 +351,4 @@ You are ready for Module 5 when:
 
 ---
 
-**Next:** [Module 5 – Failure Simulation](courses/cloud-infra/module-5-failure-simulation)
+**Next:** [Module 5 – Failure Simulation](./module-5-failure-simulation)

@@ -302,4 +302,3 @@ You have completed the Cloud Infrastructure Engineering course when:
 
 You are no longer deploying cloud infrastructure.
 
-**You are engineering resilient systems.**

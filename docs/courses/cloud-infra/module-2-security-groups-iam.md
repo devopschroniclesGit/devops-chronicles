@@ -377,4 +377,4 @@ You are ready for Module 3 when:
 
 ---
 
-**Next:** [Module 3 – Load Balancing & Scaling](courses/cloud-infra/module-3-load-balancing-scaling)
+**Next:** [Module 3 – Load Balancing & Scaling](./module-3-load-balancing-scaling)
