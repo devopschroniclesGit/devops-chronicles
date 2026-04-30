@@ -102,42 +102,6 @@ const config = {
                 label: 'DevOps Lab Engineering',
                 to: '/docs/courses/devops-lab/module-1-virtualization-architecture',
               },
-              {
-                label: 'Cloud Infrastructure',
-                to: '/docs/courses/cloud-infra/intro',
-              },
-            ],
-          },
-          {
-            title: 'Projects',
-            items: [
-              {
-                label: 'Case Studies',
-                to: '/docs/projects/case-studies/index',
-              },
-              {
-                label: 'Security & Compliance',
-                to: '/docs/projects/security/index',
-              },
-              {
-                label: 'Monitoring & Logging',
-                to: '/docs/projects/monitoring/index',
-              },
-            ],
-          },
-          {
-            title: 'Resources',
-            items: [
-              {
-                label: 'AWS Lambda + S3 Trigger',
-                to: '/docs/resources/aws/lambda-s3-trigger',
-              },
-              {
-                label: 'CI/CD Pipeline from Scratch',
-                to: '/docs/resources/cicd/cicd-pipeline-from-scratch',
-              },
-            ],
-          },
           {
             title: 'More',
             items: [
