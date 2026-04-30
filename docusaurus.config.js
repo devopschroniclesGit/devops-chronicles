@@ -30,7 +30,7 @@ const config = {
           sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/devopschroniclesgit',
         },
-        blog: false, // Not using blog — disable to keep build clean
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -57,9 +57,6 @@ const config = {
           srcDark: 'img/logo-dark.png',
         },
         items: [
-          // Each item now links to the FIRST PAGE of that section.
-          // The sidebar auto-loads based on which doc is active —
-          // no need to specify sidebarId at all.
           {
             to: '/docs/about',
             label: 'About',
@@ -73,7 +70,7 @@ const config = {
             activeBaseRegex: 'docs/courses/',
           },
           {
-            to: '/docs/projects/case-studies/index',
+            to: '/docs/projects/case-studies/',
             label: 'Projects',
             position: 'left',
             activeBaseRegex: 'docs/projects/',
@@ -102,22 +99,22 @@ const config = {
                 label: 'DevOps Lab Engineering',
                 to: '/docs/courses/devops-lab/module-1-virtualization-architecture',
               },
-	      {
-		label: 'Cloud Infrastructure',
-		to: '/docs/courses/cloud-infra/intro',
-	      },
-	    ],
-	  },
+              {
+                label: 'Cloud Infrastructure',
+                to: '/docs/courses/cloud-infra/intro',
+              },
+            ],
+          },
           {
             title: 'More',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/devopschroniclesgit',
-              },
-              {
                 label: 'About',
                 to: '/docs/about',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/devopschroniclesgit',
               },
             ],
           },
