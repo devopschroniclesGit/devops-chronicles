@@ -755,3 +755,104 @@ article li {
   background: transparent;
   border: none;
 }
+/* ═══════════════════════════════════════════════════════════
+   LIGHT MODE TEXT FIX — paste this at the very bottom of
+   src/css/custom.css, replacing the previous FIX 1 block
+   ═══════════════════════════════════════════════════════════ */
+
+/* Force base font color at the html level — highest specificity
+   without !important. Infima sets color on :root which this beats. */
+html[data-theme='light'],
+html:not([data-theme='dark']) {
+  color: #16191f;
+  --ifm-font-color-base: #16191f;
+  --ifm-font-color-secondary: #37475a;
+}
+
+/* Every text-bearing element in light mode — explicit and unambiguous */
+html[data-theme='light'] body,
+html:not([data-theme='dark']) body,
+html[data-theme='light'] p,
+html[data-theme='light'] li,
+html[data-theme='light'] td,
+html[data-theme='light'] th,
+html[data-theme='light'] span,
+html[data-theme='light'] label,
+html[data-theme='light'] .markdown,
+html[data-theme='light'] .markdown p,
+html[data-theme='light'] .markdown li,
+html[data-theme='light'] .markdown td,
+html[data-theme='light'] article p,
+html[data-theme='light'] article li,
+html[data-theme='light'] article span {
+  color: #16191f;
+  font-weight: 400;
+}
+
+/* Headings — slightly darker for hierarchy */
+html[data-theme='light'] h1,
+html[data-theme='light'] h2,
+html[data-theme='light'] h3,
+html[data-theme='light'] h4,
+html[data-theme='light'] h5,
+html[data-theme='light'] h6 {
+  color: #0d1117;
+  font-weight: 700;
+}
+
+/* Sidebar menu text */
+html[data-theme='light'] .menu__link {
+  color: #16191f;
+}
+
+html[data-theme='light'] .menu__link:hover {
+  color: #16191f;
+  background: #eaeded;
+}
+
+/* TOC right sidebar */
+html[data-theme='light'] .table-of-contents__link {
+  color: #546579;
+}
+
+html[data-theme='light'] .table-of-contents__link--active,
+html[data-theme='light'] .table-of-contents__link:hover {
+  color: #c45c18;
+}
+
+/* Admonition body text */
+html[data-theme='light'] .admonition p,
+html[data-theme='light'] .admonition li {
+  color: #16191f;
+}
+
+/* Breadcrumb current page */
+html[data-theme='light'] .breadcrumbs__item--active .breadcrumbs__link {
+  color: #546579;
+}
+
+/* Pagination labels */
+html[data-theme='light'] .pagination-nav__sublabel,
+html[data-theme='light'] .pagination-nav__label {
+  color: #16191f;
+}
+
+/* ── Dark mode stays the same ───────────────────────────── */
+html[data-theme='dark'] body,
+html[data-theme='dark'] p,
+html[data-theme='dark'] li,
+html[data-theme='dark'] td,
+html[data-theme='dark'] .markdown p,
+html[data-theme='dark'] .markdown li,
+html[data-theme='dark'] article p,
+html[data-theme='dark'] article li {
+  color: #c8d6e5;
+  font-weight: 400;
+}
+
+html[data-theme='dark'] h1,
+html[data-theme='dark'] h2,
+html[data-theme='dark'] h3,
+html[data-theme='dark'] h4 {
+  color: #eaf0f6;
+}

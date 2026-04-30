@@ -1,12 +1,5 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
-
 import {themes as prismThemes} from 'prism-react-renderer';
-
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -14,23 +7,15 @@ const config = {
   tagline: 'Production-grade DevOps engineering, documented from real systems.',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
   url: 'https://devopschroniclesgit.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/devops-chronicles',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'devopschroniclesgit', // Usually your GitHub org/user name.
-  projectName: 'devops-chronicles', // Usually your repo name.
+  organizationName: 'devopschroniclesgit',
+  projectName: 'devops-chronicles',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -43,26 +28,9 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/devopschroniclesgit'
+          editUrl: 'https://github.com/devopschroniclesgit',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/devopschroniclesgit',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false, // Not using blog — disable to keep build clean
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -73,44 +41,48 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-   colorMode: {
-     defaultMode: 'light',
-     disableSwitch: false,
-     respectPrefersColorScheme: true,
-     },
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
+
       image: 'img/docusaurus-social-card.jpg',
+
       navbar: {
         title: 'DevOps chronicles',
         logo: {
-          alt: 'devopschronicles',
+          alt: 'DevOps Chronicles',
           src: 'img/logo-light.png',
-	  srcDark: 'img/logo-dark.png',
+          srcDark: 'img/logo-dark.png',
         },
         items: [
+          // Each item now links to the FIRST PAGE of that section.
+          // The sidebar auto-loads based on which doc is active —
+          // no need to specify sidebarId at all.
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
+            to: '/docs/about',
             label: 'About',
+            position: 'left',
+            activeBasePath: 'docs/about',
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
+            to: '/docs/courses/devops-lab/module-1-virtualization-architecture',
             label: 'Courses',
-	  },
-	  {
-      	    type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Projects',
+            activeBaseRegex: 'docs/courses/',
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            to: '/docs/projects/case-studies/index',
+            label: 'Projects',
             position: 'left',
+            activeBaseRegex: 'docs/projects/',
+          },
+          {
+            to: '/docs/resources/aws/lambda-s3-trigger',
             label: 'Resources',
+            position: 'left',
+            activeBaseRegex: 'docs/resources/',
           },
           {
             href: 'https://github.com/devopschroniclesgit',
@@ -119,32 +91,50 @@ const config = {
           },
         ],
       },
+
       footer: {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Courses',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/about',
+                label: 'DevOps Lab Engineering',
+                to: '/docs/courses/devops-lab/module-1-virtualization-architecture',
+              },
+              {
+                label: 'Cloud Infrastructure',
+                to: '/docs/courses/cloud-infra/intro',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Projects',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/devops',
+                label: 'Case Studies',
+                to: '/docs/projects/case-studies/index',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/devops',
+                label: 'Security & Compliance',
+                to: '/docs/projects/security/index',
               },
               {
-                label: 'X',
-                href: 'https://x.com/devops',
+                label: 'Monitoring & Logging',
+                to: '/docs/projects/monitoring/index',
+              },
+            ],
+          },
+          {
+            title: 'Resources',
+            items: [
+              {
+                label: 'AWS Lambda + S3 Trigger',
+                to: '/docs/resources/aws/lambda-s3-trigger',
+              },
+              {
+                label: 'CI/CD Pipeline from Scratch',
+                to: '/docs/resources/cicd/cicd-pipeline-from-scratch',
               },
             ],
           },
@@ -155,14 +145,20 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/devopschroniclesgit',
               },
+              {
+                label: 'About',
+                to: '/docs/about',
+              },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Devopschronicles.`,
+        copyright: `Copyright © ${new Date().getFullYear()} DevOps Chronicles — Real Systems. Real Engineering.`,
       },
+
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: prismThemes.oneDark,
+        darkTheme: prismThemes.oneDark,
+        additionalLanguages: ['bash', 'yaml', 'hcl', 'docker', 'nginx'],
       },
     }),
 };
