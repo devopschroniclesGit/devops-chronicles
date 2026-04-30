@@ -70,7 +70,7 @@ const config = {
             activeBaseRegex: 'docs/courses/',
           },
           {
-            to: '/docs/projects/finpay/',
+            to: '/docs/projects/finpay/finpay-api',
             label: 'Projects',
             position: 'left',
             activeBaseRegex: 'docs/projects/',
