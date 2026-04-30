@@ -41,7 +41,7 @@ the request never reaches the rate limiter. If the rate limiter fires, the
 idempotency check never runs. If there is a cache hit, the database is never
 touched.
 
-![FinPay System Architecture](./finpay-architecture.svg)
+![FinPay System Architecture](./finpay-aws-architecture.svg)
 
 > **Click any box in the interactive version** to go deeper on that component.
 > The diagram is available at the live docs link above.
