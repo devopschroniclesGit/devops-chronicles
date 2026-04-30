@@ -69,12 +69,12 @@ const config = {
             position: 'left',
             activeBaseRegex: 'docs/courses/',
           },
-          {
+         /* {
             to: '/docs/projects/case-studies/',
             label: 'Projects',
             position: 'left',
             activeBaseRegex: 'docs/projects/',
-          },
+         */ },
           {
             to: '/docs/resources/aws/lambda-s3-trigger',
             label: 'Resources',

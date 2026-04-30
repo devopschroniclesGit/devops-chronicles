@@ -38,9 +38,10 @@ const sidebars = {
       label: 'Projects',
       collapsed: false,
       items: [
-        'projects/case-studies/index',
-        'projects/security/index',
-        'projects/monitoring/index',
+        'projects/finpay/finpay-api',
+        //'projects/case-studies/index',
+       // 'projects/security/index',
+       // 'projects/monitoring/index',
       ],
     },
     {
