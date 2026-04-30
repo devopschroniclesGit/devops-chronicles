@@ -1,19 +1,10 @@
-/**
- * DevOps Chronicles — AWS Documentation Style
- * Drop this file into src/css/custom.css
- *
- * Fonts loaded via docusaurus.config.js customFields or a
- * root _layout component. Alternatively, paste the @import below
- * if you aren't using a custom Head component:
- */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Source+Code+Pro:wght@400;500;600&display=swap');
 
 /* ═══════════════════════════════════════════════════════════
    LIGHT MODE — AWS Documentation palette
    ═══════════════════════════════════════════════════════════ */
 :root {
-  /* ── Brand / Primary (AWS Orange) ───────────────────────── */
-  --ifm-color-primary:          #c45c18;   /* accessible on white */
+  --ifm-color-primary:          #c45c18;
   --ifm-color-primary-dark:     #b05316;
   --ifm-color-primary-darker:   #a64e14;
   --ifm-color-primary-darkest:  #893f10;
@@ -21,22 +12,19 @@
   --ifm-color-primary-lighter:  #de6e1e;
   --ifm-color-primary-lightest: #e8811f;
 
-  /* ── AWS accent (used for decorative highlights) ─────────── */
-  --dc-orange:        #ff9900;
-  --dc-orange-dim:    rgba(255,153,0,0.10);
-  --dc-navy:          #232f3e;
-  --dc-navy-mid:      #37475a;
+  --dc-orange:     #ff9900;
+  --dc-orange-dim: rgba(255,153,0,0.10);
+  --dc-navy:       #232f3e;
 
-  /* ── Typography ─────────────────────────────────────────── */
   --ifm-font-family-base: 'Open Sans', -apple-system, BlinkMacSystemFont,
                           'Segoe UI', Helvetica, Arial, sans-serif;
   --ifm-font-family-monospace: 'Source Code Pro', 'SFMono-Regular', Consolas,
                                'Liberation Mono', Menlo, monospace;
-  --ifm-font-size-base:     15px;
-  --ifm-line-height-base:   1.75;
-  --ifm-font-weight-bold:   600;
+  --ifm-font-size-base:    15px;
+  --ifm-line-height-base:  1.75;
+  --ifm-font-weight-bold:  600;
+  --ifm-font-color-base:   #16191f;
 
-  /* ── Headings ───────────────────────────────────────────── */
   --ifm-heading-font-weight: 700;
   --ifm-heading-line-height: 1.25;
   --ifm-heading-color:       #16191f;
@@ -44,43 +32,36 @@
   --ifm-h2-font-size: 1.4rem;
   --ifm-h3-font-size: 1.15rem;
 
-  /* ── Page backgrounds ───────────────────────────────────── */
   --ifm-background-color:         #ffffff;
   --ifm-background-surface-color: #f2f3f3;
 
-  /* ── Navbar ─────────────────────────────────────────────── */
-  --ifm-navbar-background-color:    var(--dc-navy);
-  --ifm-navbar-shadow:              none;
-  --ifm-navbar-height:              58px;
-  --ifm-navbar-link-color:          #d5dbdb;
-  --ifm-navbar-link-hover-color:    var(--dc-orange);
-  --ifm-navbar-link-active-color:   var(--dc-orange);
-  --ifm-navbar-item-padding-horizontal: 14px;
+  --ifm-navbar-background-color:         var(--dc-navy);
+  --ifm-navbar-shadow:                   none;
+  --ifm-navbar-height:                   58px;
+  --ifm-navbar-link-color:               #d5dbdb;
+  --ifm-navbar-link-hover-color:         var(--dc-orange);
+  --ifm-navbar-link-active-color:        var(--dc-orange);
+  --ifm-navbar-item-padding-horizontal:  14px;
 
-  /* ── Sidebar ─────────────────────────────────────────────── */
-  --ifm-sidebar-width:           272px;
-  --doc-sidebar-width:           272px;
-  --ifm-menu-color:              #16191f;
-  --ifm-menu-color-active:       #c45c18;
-  --ifm-menu-color-background-active:  rgba(196,92,24,0.08);
-  --ifm-menu-color-background-hover:   #eaeded;
-  --ifm-menu-link-padding-horizontal:  14px;
-  --ifm-menu-link-padding-vertical:    6px;
+  --ifm-sidebar-width:                  272px;
+  --doc-sidebar-width:                  272px;
+  --ifm-menu-color:                     #16191f;
+  --ifm-menu-color-active:              #c45c18;
+  --ifm-menu-color-background-active:   rgba(196,92,24,0.08);
+  --ifm-menu-color-background-hover:    #eaeded;
+  --ifm-menu-link-padding-horizontal:   14px;
+  --ifm-menu-link-padding-vertical:     6px;
 
-  /* ── Content / Links ─────────────────────────────────────── */
   --ifm-link-color:       #0073bb;
   --ifm-link-hover-color: #005a94;
-  --ifm-font-color-base:  #16191f;
 
-  /* ── Code ───────────────────────────────────────────────── */
-  --ifm-code-font-size:    93%;
-  --ifm-code-background:   #f4f4f4;
-  --ifm-code-border-radius: 3px;
-  --ifm-code-padding-horizontal: 4px;
-  --ifm-code-padding-vertical:   2px;
+  --ifm-code-font-size:              93%;
+  --ifm-code-background:             #f4f4f4;
+  --ifm-code-border-radius:          3px;
+  --ifm-code-padding-horizontal:     4px;
+  --ifm-code-padding-vertical:       2px;
   --docusaurus-highlighted-code-line-bg: rgba(255,153,0,0.12);
 
-  /* ── Borders & surfaces ──────────────────────────────────── */
   --ifm-color-emphasis-100: #f2f3f3;
   --ifm-color-emphasis-200: #eaeded;
   --ifm-color-emphasis-300: #d5dbdb;
@@ -90,23 +71,20 @@
   --ifm-global-border-width: 1px;
   --ifm-global-radius:       4px;
 
-  /* ── Tables ─────────────────────────────────────────────── */
   --ifm-table-stripe-background: #f8f8f8;
-  --ifm-table-border-color: #eaeded;
+  --ifm-table-border-color:      #eaeded;
 
-  /* ── Footer ─────────────────────────────────────────────── */
-  --ifm-footer-background-color: var(--dc-navy);
-  --ifm-footer-color: #d5dbdb;
-  --ifm-footer-link-color: #aab7b8;
-  --ifm-footer-link-hover-color: var(--dc-orange);
-  --ifm-footer-title-color: #ffffff;
+  --ifm-footer-background-color:  var(--dc-navy);
+  --ifm-footer-color:             #d5dbdb;
+  --ifm-footer-link-color:        #aab7b8;
+  --ifm-footer-link-hover-color:  var(--dc-orange);
+  --ifm-footer-title-color:       #ffffff;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DARK MODE — AWS dark documentation palette
+   DARK MODE
    ═══════════════════════════════════════════════════════════ */
 [data-theme='dark'] {
-  /* ── Brand / Primary ─────────────────────────────────────── */
   --ifm-color-primary:          #ff9900;
   --ifm-color-primary-dark:     #e88a00;
   --ifm-color-primary-darker:   #db8200;
@@ -115,32 +93,25 @@
   --ifm-color-primary-lighter:  #ffb347;
   --ifm-color-primary-lightest: #ffc266;
 
-  /* ── Page backgrounds ───────────────────────────────────── */
   --ifm-background-color:         #0f1b2d;
   --ifm-background-surface-color: #1b2836;
+  --ifm-navbar-background-color:  #161d26;
+  --ifm-navbar-link-color:        #d5dbdb;
+  --ifm-navbar-link-hover-color:  var(--dc-orange);
 
-  /* ── Navbar (same dark as light mode — AWS style) ────────── */
-  --ifm-navbar-background-color: #161d26;
-  --ifm-navbar-link-color:       #d5dbdb;
-  --ifm-navbar-link-hover-color: var(--dc-orange);
+  --ifm-menu-color:                   #c8d6e5;
+  --ifm-menu-color-active:            #ff9900;
+  --ifm-menu-color-background-active: rgba(255,153,0,0.10);
+  --ifm-menu-color-background-hover:  rgba(255,255,255,0.06);
 
-  /* ── Sidebar ─────────────────────────────────────────────── */
-  --ifm-menu-color:                    #c8d6e5;
-  --ifm-menu-color-active:             #ff9900;
-  --ifm-menu-color-background-active:  rgba(255,153,0,0.10);
-  --ifm-menu-color-background-hover:   rgba(255,255,255,0.06);
-
-  /* ── Content / Links ─────────────────────────────────────── */
   --ifm-font-color-base:  #c8d6e5;
   --ifm-heading-color:    #eaf0f6;
   --ifm-link-color:       #4d9de0;
   --ifm-link-hover-color: #69aee8;
 
-  /* ── Code ───────────────────────────────────────────────── */
-  --ifm-code-background:   #1b2836;
+  --ifm-code-background: #1b2836;
   --docusaurus-highlighted-code-line-bg: rgba(255,153,0,0.15);
 
-  /* ── Borders ─────────────────────────────────────────────── */
   --ifm-color-emphasis-100: #1b2836;
   --ifm-color-emphasis-200: #232f3e;
   --ifm-color-emphasis-300: #37475a;
@@ -148,38 +119,27 @@
   --ifm-toc-border-color:   #232f3e;
   --ifm-hr-border-color:    #232f3e;
 
-  /* ── Tables ─────────────────────────────────────────────── */
   --ifm-table-stripe-background: #1b2836;
-  --ifm-table-border-color: #232f3e;
+  --ifm-table-border-color:      #232f3e;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   NAVBAR
+   NAVBAR — always dark (AWS style)
    ═══════════════════════════════════════════════════════════ */
-
-/* Always dark — AWS style (overrides both themes) */
 .navbar {
   background-color: var(--dc-navy) !important;
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-
 [data-theme='dark'] .navbar {
   background-color: #161d26 !important;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-
 .navbar__title {
   font-weight: 700;
   font-size: 16px;
   color: #ffffff;
   letter-spacing: -0.01em;
 }
-
-.navbar__logo {
-  height: 28px;
-  margin-right: 2px;
-}
-
+.navbar__logo { height: 28px; margin-right: 2px; }
 .navbar__link {
   font-size: 14px;
   font-weight: 400;
@@ -188,33 +148,23 @@
   border-radius: 3px;
   transition: color 0.15s, background 0.15s;
 }
-
 .navbar__link:hover,
 .navbar__link--active {
   color: var(--dc-orange) !important;
   background: rgba(255,153,0,0.08);
 }
-
-/* Color mode toggle */
-.navbar__items--right .clean-btn {
-  color: #aab7b8;
-}
-
+.navbar__items--right .clean-btn { color: #aab7b8; }
 .navbar__items--right .clean-btn:hover {
   color: var(--dc-orange);
   background: rgba(255,153,0,0.08);
 }
-
-/* Search bar */
 .navbar__search-input {
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
   color: #ffffff;
   border-radius: 4px;
 }
-
 .navbar__search-input::placeholder { color: #aab7b8; }
-
 .navbar__search-input:focus {
   background: rgba(255,255,255,0.12);
   border-color: var(--dc-orange);
@@ -225,17 +175,13 @@
 /* ═══════════════════════════════════════════════════════════
    SIDEBAR
    ═══════════════════════════════════════════════════════════ */
-
 .theme-doc-sidebar-container {
   border-right: 1px solid var(--ifm-color-emphasis-200);
 }
-
 [data-theme='dark'] .theme-doc-sidebar-container {
   border-right-color: #232f3e;
   background: #0f1b2d;
 }
-
-/* Category labels (GETTING STARTED, COURSES, etc.) */
 .menu__list-item-collapsible .menu__link--sublist,
 .menu__link--sublist-caret {
   font-size: 11px;
@@ -246,13 +192,10 @@
   cursor: default;
   padding-top: 18px;
 }
-
 .menu__list-item-collapsible .menu__link--sublist:hover {
   background: transparent;
   color: var(--ifm-color-emphasis-400);
 }
-
-/* Active page item */
 .menu__link--active:not(.menu__link--sublist) {
   border-left: 3px solid var(--ifm-color-primary);
   padding-left: calc(var(--ifm-menu-link-padding-horizontal) - 3px);
@@ -260,536 +203,35 @@
   color: var(--ifm-menu-color-active);
   font-weight: 600;
 }
-
 .menu__link {
   border-radius: 3px;
   font-size: 14px;
   transition: background 0.12s, color 0.12s;
 }
-
-.menu__link:hover {
-  background: var(--ifm-menu-color-background-hover);
-}
-
-/* Caret icon */
+.menu__link:hover { background: var(--ifm-menu-color-background-hover); }
 .menu__caret::before,
 .menu__link--sublist-caret::after {
   border-color: var(--ifm-color-emphasis-400) transparent transparent;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CONTENT AREA
+   DOC CONTENT — scoped to article/markdown only
+   This avoids overriding homepage or other custom pages
    ═══════════════════════════════════════════════════════════ */
-
-.theme-doc-markdown {
-  max-width: 820px;
-}
-
-/* Headings */
-h1.h1Heading_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module,
-article h1 {
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--ifm-heading-color);
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--ifm-color-emphasis-200);
-}
-
-article h2 {
-  font-size: 1.35rem;
-  margin-top: 2.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
-  color: var(--ifm-heading-color);
-}
-
-article h3 {
-  font-size: 1.1rem;
-  margin-top: 1.75rem;
-}
-
-/* Paragraphs & reading comfort */
-.markdown p {
-  margin-bottom: 1rem;
-  line-height: 1.8;
-}
-
-/* Inline code */
-code {
-  background: var(--ifm-code-background);
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: var(--ifm-code-border-radius);
-  font-size: var(--ifm-code-font-size);
-  padding: 1px 5px;
-  color: inherit;
-}
-
-[data-theme='dark'] code {
-  border-color: rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.06);
-}
-
-/* Code blocks */
-.prism-code {
-  border-radius: 5px;
-  font-size: 13.5px;
-  line-height: 1.65;
-}
-
-[data-theme='light'] .prism-code {
-  background: #1a2332 !important;  /* always dark for code blocks */
-}
-
-div[class^='codeBlockContainer'] {
-  border-radius: 5px;
-  box-shadow: none;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-/* Code block title/language bar */
-div[class^='codeBlockTitle'] {
-  background: #10192a;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 12px;
-  color: #aab7b8;
-  padding: 8px 14px;
-  letter-spacing: 0.03em;
-}
-
-/* Copy button */
-.clean-btn.copyButton_node_modules {
-  color: #aab7b8;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ADMONITIONS  (info, tip, warning, danger, note)
-   ═══════════════════════════════════════════════════════════ */
-
-.admonition {
-  border-radius: 4px;
-  border: none;
-  border-left: 4px solid;
-  margin: 1.5rem 0;
-  padding: 14px 18px;
-  font-size: 14px;
-}
-
-.admonition-heading {
-  display: none;   /* hide "Note", "Tip" etc — AWS style shows icon only */
-}
-
-/* Note */
-.admonition-note {
-  background: #f2f3f3;
-  border-left-color: #aab7b8;
-}
-[data-theme='dark'] .admonition-note {
-  background: #1b2836;
-  border-left-color: #546579;
-}
-
-/* Tip / Important */
-.admonition-tip {
-  background: #f0f9f4;
-  border-left-color: #1d8348;
-}
-[data-theme='dark'] .admonition-tip {
-  background: rgba(29,131,72,0.1);
-  border-left-color: #27ae60;
-}
-
-/* Info */
-.admonition-info {
-  background: #eaf4fb;
-  border-left-color: #0073bb;
-}
-[data-theme='dark'] .admonition-info {
-  background: rgba(0,115,187,0.1);
-  border-left-color: #4d9de0;
-}
-
-/* Warning */
-.admonition-warning {
-  background: #fef9ec;
-  border-left-color: #d68910;
-}
-[data-theme='dark'] .admonition-warning {
-  background: rgba(255,153,0,0.08);
-  border-left-color: #ff9900;
-}
-
-/* Danger */
-.admonition-danger {
-  background: #fdf2f2;
-  border-left-color: #c0392b;
-}
-[data-theme='dark'] .admonition-danger {
-  background: rgba(192,57,43,0.1);
-  border-left-color: #e74c3c;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   TABLES
-   ═══════════════════════════════════════════════════════════ */
-
-table {
-  font-size: 14px;
-  border-collapse: collapse;
-  width: 100%;
-  margin: 1.5rem 0;
-  border: 1px solid var(--ifm-table-border-color);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-th {
-  background: var(--ifm-background-surface-color);
-  font-weight: 600;
-  text-align: left;
-  padding: 10px 14px;
-  border-bottom: 2px solid var(--ifm-color-emphasis-300);
-  font-size: 13px;
-  letter-spacing: 0.01em;
-  color: var(--ifm-heading-color);
-}
-
-td {
-  padding: 9px 14px;
-  border-bottom: 1px solid var(--ifm-table-border-color);
-  vertical-align: top;
-  line-height: 1.6;
-}
-
-tr:last-child td { border-bottom: none; }
-tr:nth-child(even) td { background: var(--ifm-table-stripe-background); }
-
-/* ═══════════════════════════════════════════════════════════
-   TABLE OF CONTENTS (right sidebar)
-   ═══════════════════════════════════════════════════════════ */
-
-.table-of-contents {
-  font-size: 13px;
-  border-left: 1px solid var(--ifm-toc-border-color);
-  padding-left: 14px;
-}
-
-.table-of-contents__link {
-  color: var(--ifm-color-emphasis-700, #546579);
-  display: block;
-  padding: 3px 0;
-  line-height: 1.4;
-  transition: color 0.12s;
-}
-
-.table-of-contents__link:hover,
-.table-of-contents__link--active {
-  color: var(--ifm-color-primary);
-  font-weight: 600;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   BREADCRUMBS
-   ═══════════════════════════════════════════════════════════ */
-
-.breadcrumbs {
-  font-size: 13px;
-  margin-bottom: 0.75rem;
-}
-
-.breadcrumbs__link {
-  color: var(--ifm-link-color);
-  transition: color 0.12s;
-}
-
-.breadcrumbs__link:hover { color: var(--ifm-link-hover-color); }
-
-.breadcrumbs__item--active .breadcrumbs__link {
-  color: var(--ifm-color-emphasis-400);
-  font-weight: 400;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   PAGINATION NAV (prev/next article)
-   ═══════════════════════════════════════════════════════════ */
-
-.pagination-nav__link {
-  border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 4px;
-  transition: border-color 0.15s, background 0.15s;
-}
-
-.pagination-nav__link:hover {
-  border-color: var(--ifm-color-primary);
-  background: var(--dc-orange-dim);
-}
-
-.pagination-nav__label::before,
-.pagination-nav__label::after { color: var(--ifm-color-primary); }
-
-/* ═══════════════════════════════════════════════════════════
-   TAGS  (the AWS / Elastic Beanstalk / Intermediate badges)
-   ═══════════════════════════════════════════════════════════ */
-
-.theme-doc-version-badge,
-.badge,
-a.badge {
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 3px 9px;
-  border: 1px solid transparent;
-}
-
-/* "AWS" tag — blue */
-.badge--primary {
-  background: #eaf4fb;
-  color: #0a5e8c;
-  border-color: #b3d6ed;
-}
-[data-theme='dark'] .badge--primary {
-  background: rgba(0,115,187,0.15);
-  color: #4d9de0;
-  border-color: rgba(77,157,224,0.3);
-}
-
-/* "Intermediate" tag — orange */
-.badge--warning {
-  background: rgba(255,153,0,0.1);
-  color: #7d4e00;
-  border-color: rgba(255,153,0,0.3);
-}
-[data-theme='dark'] .badge--warning {
-  background: rgba(255,153,0,0.12);
-  color: #ff9900;
-  border-color: rgba(255,153,0,0.3);
-}
-
-/* "Elastic Beanstalk" / secondary tag — green */
-.badge--success {
-  background: #f0f9f4;
-  color: #1a6b3c;
-  border-color: #a9d5b8;
-}
-[data-theme='dark'] .badge--success {
-  background: rgba(39,174,96,0.1);
-  color: #27ae60;
-  border-color: rgba(39,174,96,0.3);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════════════════════ */
-
-.footer {
-  background: var(--dc-navy);
-  border-top: 3px solid var(--dc-orange);
-  padding: 3rem 2rem;
-}
-
-.footer__title {
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.footer__link-item {
-  font-size: 14px;
-  color: #aab7b8;
-  transition: color 0.12s;
-}
-
-.footer__link-item:hover { color: var(--dc-orange); }
-
-.footer__copyright {
-  font-size: 13px;
-  color: #546579;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   MISC POLISH
-   ═══════════════════════════════════════════════════════════ */
-
-/* Doc page edit/feedback row at bottom */
-.theme-doc-footer {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
-  font-size: 13px;
-}
-
-/* Scrollbar — subtle */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: var(--ifm-color-emphasis-300);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover { background: var(--ifm-color-emphasis-400); }
-
-/* Smooth transitions between themes */
-body {
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-/* ═══════════════════════════════════════════════════════════
-   FIXES — add these at the very bottom of src/css/custom.css
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── FIX 1: Light mode text clarity ────────────────────────
-   Remove the 300-weight that made body text look washed out.
-   Docs content needs solid 400 weight at full contrast.       */
-
-:root {
-  --ifm-font-color-base: #16191f;      /* near-black — clear on white */
-  --ifm-font-weight-base: 400;
-}
-
-.markdown p,
-.markdown li,
-.markdown td,
-.markdown blockquote,
-article p,
-article li {
-  font-weight: 400;
-  color: var(--ifm-font-color-base);
-  line-height: 1.8;
-}
-
-/* Slightly muted secondary text but still readable */
-.markdown blockquote {
-  color: #37475a;
-  border-left: 4px solid var(--ifm-color-emphasis-300);
-  background: var(--ifm-background-surface-color);
-  padding: 0.75rem 1rem;
-  border-radius: 0 4px 4px 0;
-  font-style: italic;
-}
-
-[data-theme='dark'] .markdown p,
-[data-theme='dark'] .markdown li,
-[data-theme='dark'] .markdown td,
-[data-theme='dark'] article p,
-[data-theme='dark'] article li {
-  color: #c8d6e5;   /* bright enough on dark bg */
-}
-
-[data-theme='dark'] .markdown blockquote {
-  color: #aab7b8;
-  border-left-color: #37475a;
-  background: #1b2836;
-}
-
-/* Headings — crisp in both modes */
-[data-theme='light'] h1,
-[data-theme='light'] h2,
-[data-theme='light'] h3,
-[data-theme='light'] h4 {
-  color: #16191f;
-}
-
-[data-theme='dark'] h1,
-[data-theme='dark'] h2,
-[data-theme='dark'] h3,
-[data-theme='dark'] h4 {
-  color: #eaf0f6;
-}
-
-/* ── FIX 2: Footer — deep near-black like the mockup ────────
-   Replaces the #232f3e navy with the richer #0a0a0b base.     */
-
-.footer {
-  background: #0a0a0b !important;
-  border-top: 2px solid #ff9900;
-}
-
-.footer__title {
-  color: #f0efed;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.footer__link-item {
-  color: #8a8785;
-  font-size: 14px;
-  transition: color 0.15s;
-}
-
-.footer__link-item:hover {
-  color: #ff9900;
-  text-decoration: none;
-}
-
-.footer__copyright {
-  color: #4a4845;
-  font-size: 12px;
-  font-family: 'Source Code Pro', monospace;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 1.25rem;
-  margin-top: 2rem;
-}
-
-/* ── FIX 3: Inline code contrast in light mode ──────────────
-   The #f4f4f4 background with default text was hard to read.  */
-
-[data-theme='light'] code {
-  color: #c0392b;         /* AWS-style red for inline code */
-  background: #fdf2f2;
-  border: 1px solid #f0c4be;
-}
-
-/* Code inside code blocks should not get the red treatment */
-[data-theme='light'] .prism-code code,
-[data-theme='light'] .codeBlock_node_modules code {
-  color: inherit;
-  background: transparent;
-  border: none;
-}
-/* ═══════════════════════════════════════════════════════════
-   LIGHT MODE TEXT FIX — paste this at the very bottom of
-   src/css/custom.css, replacing the previous FIX 1 block
-   ═══════════════════════════════════════════════════════════ */
-
-/* Force base font color at the html level — highest specificity
-   without !important. Infima sets color on :root which this beats. */
-html[data-theme='light'],
-html:not([data-theme='dark']) {
-  color: #16191f;
-  --ifm-font-color-base: #16191f;
-  --ifm-font-color-secondary: #37475a;
-}
-
-/* Every text-bearing element in light mode — explicit and unambiguous */
-html[data-theme='light'] body,
-html:not([data-theme='dark']) body,
-html[data-theme='light'] p,
-html[data-theme='light'] li,
-html[data-theme='light'] td,
-html[data-theme='light'] th,
-html[data-theme='light'] span,
-html[data-theme='light'] label,
-html[data-theme='light'] .markdown,
-html[data-theme='light'] .markdown p,
-html[data-theme='light'] .markdown li,
-html[data-theme='light'] .markdown td,
+.theme-doc-markdown { max-width: 820px; }
+
+/* Light mode doc text — scoped tightly, no global span override */
+html[data-theme='light'] .theme-doc-markdown,
+html[data-theme='light'] .theme-doc-markdown p,
+html[data-theme='light'] .theme-doc-markdown li,
+html[data-theme='light'] .theme-doc-markdown td,
 html[data-theme='light'] article p,
 html[data-theme='light'] article li,
-html[data-theme='light'] article span {
+html[data-theme='light'] article td {
   color: #16191f;
   font-weight: 400;
 }
 
-/* Headings — slightly darker for hierarchy */
 html[data-theme='light'] h1,
 html[data-theme='light'] h2,
 html[data-theme='light'] h3,
@@ -800,59 +242,273 @@ html[data-theme='light'] h6 {
   font-weight: 700;
 }
 
-/* Sidebar menu text */
-html[data-theme='light'] .menu__link {
-  color: #16191f;
-}
-
-html[data-theme='light'] .menu__link:hover {
-  color: #16191f;
-  background: #eaeded;
-}
-
-/* TOC right sidebar */
-html[data-theme='light'] .table-of-contents__link {
-  color: #546579;
-}
-
-html[data-theme='light'] .table-of-contents__link--active,
-html[data-theme='light'] .table-of-contents__link:hover {
-  color: #c45c18;
-}
-
-/* Admonition body text */
-html[data-theme='light'] .admonition p,
-html[data-theme='light'] .admonition li {
-  color: #16191f;
-}
-
-/* Breadcrumb current page */
-html[data-theme='light'] .breadcrumbs__item--active .breadcrumbs__link {
-  color: #546579;
-}
-
-/* Pagination labels */
-html[data-theme='light'] .pagination-nav__sublabel,
-html[data-theme='light'] .pagination-nav__label {
-  color: #16191f;
-}
-
-/* ── Dark mode stays the same ───────────────────────────── */
-html[data-theme='dark'] body,
-html[data-theme='dark'] p,
-html[data-theme='dark'] li,
-html[data-theme='dark'] td,
-html[data-theme='dark'] .markdown p,
-html[data-theme='dark'] .markdown li,
+/* Dark mode doc text */
+html[data-theme='dark'] .theme-doc-markdown p,
+html[data-theme='dark'] .theme-doc-markdown li,
+html[data-theme='dark'] .theme-doc-markdown td,
 html[data-theme='dark'] article p,
 html[data-theme='dark'] article li {
   color: #c8d6e5;
   font-weight: 400;
 }
-
 html[data-theme='dark'] h1,
 html[data-theme='dark'] h2,
 html[data-theme='dark'] h3,
-html[data-theme='dark'] h4 {
-  color: #eaf0f6;
+html[data-theme='dark'] h4 { color: #eaf0f6; }
+
+/* Headings in article */
+article h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
 }
+article h2 {
+  font-size: 1.35rem;
+  margin-top: 2.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+article h3 { font-size: 1.1rem; margin-top: 1.75rem; }
+.markdown p { margin-bottom: 1rem; line-height: 1.8; }
+
+/* Blockquote */
+.markdown blockquote {
+  border-left: 4px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+  padding: 0.75rem 1rem;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: #37475a;
+}
+[data-theme='dark'] .markdown blockquote {
+  color: #aab7b8;
+  border-left-color: #37475a;
+  background: #1b2836;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INLINE CODE
+   ═══════════════════════════════════════════════════════════ */
+code {
+  background: var(--ifm-code-background);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-code-border-radius);
+  font-size: var(--ifm-code-font-size);
+  padding: 1px 5px;
+}
+/* AWS-style red inline code in light mode */
+[data-theme='light'] code {
+  color: #c0392b;
+  background: #fdf2f2;
+  border-color: #f0c4be;
+}
+[data-theme='dark'] code {
+  color: inherit;
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
+}
+/* Code blocks override the inline style */
+[data-theme='light'] .prism-code code,
+.prism-code code {
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CODE BLOCKS
+   ═══════════════════════════════════════════════════════════ */
+.prism-code {
+  border-radius: 5px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+[data-theme='light'] .prism-code {
+  background: #1a2332 !important;
+}
+div[class^='codeBlockContainer'] {
+  border-radius: 5px;
+  box-shadow: none;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+div[class^='codeBlockTitle'] {
+  background: #10192a;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 12px;
+  color: #aab7b8;
+  padding: 8px 14px;
+  letter-spacing: 0.03em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADMONITIONS
+   ═══════════════════════════════════════════════════════════ */
+.admonition {
+  border-radius: 4px;
+  border: none;
+  border-left: 4px solid;
+  margin: 1.5rem 0;
+  padding: 14px 18px;
+  font-size: 14px;
+}
+.admonition-heading { display: none; }
+.admonition-note { background: #f2f3f3; border-left-color: #aab7b8; }
+[data-theme='dark'] .admonition-note { background: #1b2836; border-left-color: #546579; }
+.admonition-tip { background: #f0f9f4; border-left-color: #1d8348; }
+[data-theme='dark'] .admonition-tip { background: rgba(29,131,72,0.1); border-left-color: #27ae60; }
+.admonition-info { background: #eaf4fb; border-left-color: #0073bb; }
+[data-theme='dark'] .admonition-info { background: rgba(0,115,187,0.1); border-left-color: #4d9de0; }
+.admonition-warning { background: #fef9ec; border-left-color: #d68910; }
+[data-theme='dark'] .admonition-warning { background: rgba(255,153,0,0.08); border-left-color: #ff9900; }
+.admonition-danger { background: #fdf2f2; border-left-color: #c0392b; }
+[data-theme='dark'] .admonition-danger { background: rgba(192,57,43,0.1); border-left-color: #e74c3c; }
+
+/* Admonition text — light mode */
+html[data-theme='light'] .admonition p,
+html[data-theme='light'] .admonition li { color: #16191f; }
+
+/* ═══════════════════════════════════════════════════════════
+   TABLES
+   ═══════════════════════════════════════════════════════════ */
+table {
+  font-size: 14px;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  border: 1px solid var(--ifm-table-border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+th {
+  background: var(--ifm-background-surface-color);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ifm-color-emphasis-300);
+  font-size: 13px;
+  color: var(--ifm-heading-color);
+}
+td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--ifm-table-border-color);
+  vertical-align: top;
+  line-height: 1.6;
+}
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--ifm-table-stripe-background); }
+
+/* ═══════════════════════════════════════════════════════════
+   TABLE OF CONTENTS
+   ═══════════════════════════════════════════════════════════ */
+.table-of-contents {
+  font-size: 13px;
+  border-left: 1px solid var(--ifm-toc-border-color);
+  padding-left: 14px;
+}
+.table-of-contents__link {
+  color: #546579;
+  display: block;
+  padding: 3px 0;
+  line-height: 1.4;
+  transition: color 0.12s;
+}
+[data-theme='dark'] .table-of-contents__link { color: #546579; }
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BREADCRUMBS
+   ═══════════════════════════════════════════════════════════ */
+.breadcrumbs { font-size: 13px; margin-bottom: 0.75rem; }
+.breadcrumbs__link { color: var(--ifm-link-color); transition: color 0.12s; }
+.breadcrumbs__link:hover { color: var(--ifm-link-hover-color); }
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--ifm-color-emphasis-400);
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR MENU TEXT — light mode
+   ═══════════════════════════════════════════════════════════ */
+html[data-theme='light'] .menu__link { color: #16191f; }
+html[data-theme='light'] .menu__link:hover { color: #16191f; background: #eaeded; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGINATION
+   ═══════════════════════════════════════════════════════════ */
+.pagination-nav__link {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--dc-orange-dim);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BADGES / TAGS
+   ═══════════════════════════════════════════════════════════ */
+.badge, a.badge {
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border: 1px solid transparent;
+}
+.badge--primary { background: #eaf4fb; color: #0a5e8c; border-color: #b3d6ed; }
+[data-theme='dark'] .badge--primary { background: rgba(0,115,187,0.15); color: #4d9de0; border-color: rgba(77,157,224,0.3); }
+.badge--warning { background: rgba(255,153,0,0.1); color: #7d4e00; border-color: rgba(255,153,0,0.3); }
+[data-theme='dark'] .badge--warning { background: rgba(255,153,0,0.12); color: #ff9900; border-color: rgba(255,153,0,0.3); }
+.badge--success { background: #f0f9f4; color: #1a6b3c; border-color: #a9d5b8; }
+[data-theme='dark'] .badge--success { background: rgba(39,174,96,0.1); color: #27ae60; border-color: rgba(39,174,96,0.3); }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+.footer {
+  background: #0a0a0b !important;
+  border-top: 2px solid var(--dc-orange);
+  padding: 3rem 2rem;
+}
+.footer__title {
+  color: #f0efed;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.footer__link-item { font-size: 14px; color: #8a8785; transition: color 0.15s; }
+.footer__link-item:hover { color: var(--dc-orange); text-decoration: none; }
+.footer__copyright {
+  font-size: 12px;
+  color: #4a4845;
+  font-family: 'Source Code Pro', monospace;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 1.25rem;
+  margin-top: 2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MISC
+   ═══════════════════════════════════════════════════════════ */
+.theme-doc-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  font-size: 13px;
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ifm-color-emphasis-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ifm-color-emphasis-400); }
+body { transition: background-color 0.2s ease, color 0.2s ease; }
