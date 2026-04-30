@@ -43,9 +43,6 @@ touched.
 
 ![FinPay System Architecture](./finpay_aws_architecture.svg)
 
-> **Click any box in the interactive version** to go deeper on that component.
-> The diagram is available at the live docs link above.
-
 ---
 
 ## Middleware Pipeline — In Order
