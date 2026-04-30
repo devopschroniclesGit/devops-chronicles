@@ -41,7 +41,7 @@ the request never reaches the rate limiter. If the rate limiter fires, the
 idempotency check never runs. If there is a cache hit, the database is never
 touched.
 
-![FinPay System Architecture](./finpay-aws-architecture.svg)
+![FinPay System Architecture](./finpay_aws_architecture.svg)
 
 > **Click any box in the interactive version** to go deeper on that component.
 > The diagram is available at the live docs link above.
@@ -100,7 +100,7 @@ operations continue to the service layer.
 
 The schema is built around four tables with clear ownership:
 
-![FinPay Data Model](./finpay-data-model.svg)
+![FinPay Data Model](./finpay_data_model.svg)
 
 Each user owns exactly one account. Transactions reference the accounts table
 twice — `senderId` and `receiverId` — both wrapped in a single Prisma
