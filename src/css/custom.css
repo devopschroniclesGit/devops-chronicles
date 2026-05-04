@@ -512,3 +512,68 @@ html[data-theme='light'] .menu__link:hover { color: #16191f; background: #eaeded
 ::-webkit-scrollbar-thumb { background: var(--ifm-color-emphasis-300); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ifm-color-emphasis-400); }
 body { transition: background-color 0.2s ease, color 0.2s ease; }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE NAVBAR SIDEBAR
+   ═══════════════════════════════════════════════════════════ */
+
+/* Sidebar backdrop/container */
+.navbar-sidebar {
+  background: #0f1b2d !important;
+  border-right: 1px solid #232f3e;
+}
+
+/* Header bar ("Back to main menu" row) */
+.navbar-sidebar__brand {
+  background: #161d26 !important;
+  border-bottom: 1px solid #232f3e;
+}
+
+.navbar-sidebar__back {
+  color: #c8d6e5 !important;
+  font-size: 14px;
+}
+
+/* All menu links in mobile */
+.navbar-sidebar .menu__link {
+  color: #c8d6e5 !important;
+  font-size: 15px;
+  padding: 10px 16px;
+}
+
+.navbar-sidebar .menu__link:hover {
+  background: rgba(255,255,255,0.06) !important;
+  color: #ffffff !important;
+}
+
+/* Active item */
+.navbar-sidebar .menu__link--active {
+  color: #ff9900 !important;
+  border-left-color: #ff9900 !important;
+  background: rgba(255,153,0,0.08) !important;
+}
+
+/* Category labels (COURSES, PROJECTS, RESOURCES) */
+.navbar-sidebar .menu__list-item-collapsible .menu__link--sublist {
+  color: #aab7b8 !important;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+/* Caret arrows */
+.navbar-sidebar .menu__caret::before,
+.navbar-sidebar .menu__link--sublist-caret::after {
+  border-color: #aab7b8 transparent transparent !important;
+}
+
+/* Close button */
+.navbar-sidebar__close {
+  color: #c8d6e5 !important;
+}
+
+/* Item separators */
+.navbar-sidebar .navbar__items {
+  border-bottom: 1px solid #232f3e;
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}

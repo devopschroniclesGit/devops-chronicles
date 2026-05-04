@@ -78,7 +78,7 @@ const config = {
             activeBaseRegex: 'docs/projects/',
           },
           {
-            to: '/docs/resources/aws/lambda-s3-trigger',
+            to: '/docs/resources/decision-frameworks/compute-ec2-lambda-ecs',
             label: 'Resources',
             position: 'left',
             activeBaseRegex: 'docs/resources/',

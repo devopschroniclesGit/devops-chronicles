@@ -43,8 +43,6 @@ touched.
 
 ![FinPay System Architecture](./finpay_aws_architecture.svg)
 
----
-
 ## Middleware Pipeline — In Order
 
 Every request passes through these four layers before reaching business logic:
@@ -150,20 +148,6 @@ Full request/response schemas with interactive try-it-now at the
 [Swagger UI](https://devopschroniclesgit.github.io/finpay-api/).
 
 ---
-
-## Running Locally
-
-```bash title="Terminal"
-git clone https://github.com/devopschroniclesGit/finpay-api
-cd finpay-api
-cp .env.example .env
-docker compose up -d        # starts PostgreSQL 15 + Redis 7
-npm install
-npx prisma migrate dev
-npx prisma db seed
-npm run dev                 # server at http://localhost:3000
-```
-
 **Seed accounts:**
 
 | Email | Password | Balance |
