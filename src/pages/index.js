@@ -7,7 +7,7 @@ import styles from './index.module.css';
 const courses = [
   {
     title: 'DevOps Lab Engineering',
-    href: '/devops-chronicles/docs/courses/devops-lab/module-1-virtualization-architecture',
+    href: '/docs/courses/devops-lab/module-1-virtualization-architecture',
     modules: 6,
     description: 'Build a production-style home lab from scratch. Virtualisation, network segmentation, system hardening, storage engineering, and observability.',
     icon: '🖥️',
@@ -15,7 +15,7 @@ const courses = [
   },
   {
     title: 'Cloud Infrastructure Engineering',
-    href: '/devops-chronicles/docs/courses/cloud-infra/intro',
+    href: '/docs/courses/cloud-infra/intro',
     modules: 5,
     description: 'Design and operate production AWS infrastructure. VPC design, IAM strategy, load balancing, Terraform, and failure simulation.',
     icon: '☁️',
@@ -26,13 +26,13 @@ const courses = [
 const projects = [
   {
     title: 'AWS Elastic Beanstalk Deployment',
-    href: '/devops-chronicles/docs/projects/case-studies/aws-elastic-beanstalk',
+    href: '/docs/projects/case-studies/aws-elastic-beanstalk',
     description: 'End-to-end deployment of a Node.js app with auto scaling and zero-downtime deploys.',
     tag: 'Case Study',
   },
   {
     title: 'Streamlining Deployment with CodeDeploy',
-    href: '/devops-chronicles/docs/projects/case-studies/aws-codedeploy',
+    href: '/docs/projects/case-studies/aws-codedeploy',
     description: 'Blue/green deployments, lifecycle hooks, and automatic rollback on failure.',
     tag: 'Case Study',
   },
@@ -41,19 +41,19 @@ const projects = [
 const decisionFrameworks = [
   {
     title: 'EC2 vs Lambda vs ECS',
-    href: '/devops-chronicles/docs/resources/decision-frameworks/compute-ec2-lambda-ecs',
+    href: '/docs/resources/decision-frameworks/compute-ec2-lambda-ecs',
     description: 'Choosing compute based on runtime, state, and operational burden — not feature lists.',
     tag: 'Compute',
   },
   {
     title: 'S3 vs EBS vs EFS',
-    href: '/devops-chronicles/docs/resources/decision-frameworks/storage-s3-ebs-efs',
+    href: '/docs/resources/decision-frameworks/storage-s3-ebs-efs',
     description: 'Three storage services that solve completely different problems at different layers.',
     tag: 'Storage',
   },
   {
     title: 'RDS vs Aurora vs DynamoDB',
-    href: '/devops-chronicles/docs/resources/decision-frameworks/database-rds-dynamodb-aurora',
+    href: '/docs/resources/decision-frameworks/database-rds-dynamodb-aurora',
     description: 'The most consequential database choice you will make — and how to get it right.',
     tag: 'Database',
   },
@@ -62,19 +62,19 @@ const decisionFrameworks = [
 const incidentPatterns = [
   {
     title: 'Disk Full',
-    href: '/devops-chronicles/docs/resources/incident-patterns/disk-full',
+    href: '/docs/resources/incident-patterns/disk-full',
     description: 'What it looks like, the deleted-file trap most engineers miss, and how to recover cleanly.',
     tag: 'Storage',
   },
   {
     title: 'OOM Killer',
-    href: '/devops-chronicles/docs/resources/incident-patterns/oom-killer',
+    href: '/docs/resources/incident-patterns/oom-killer',
     description: 'Your process vanishes with no error. How to find the kill, understand the score, and prevent it.',
     tag: 'Memory',
   },
   {
     title: 'IAM Permission Errors',
-    href: '/devops-chronicles/docs/resources/incident-patterns/iam-permission-errors',
+    href: '/docs/resources/incident-patterns/iam-permission-errors',
     description: 'Access Denied can mean five different things. A systematic approach to finding the real cause.',
     tag: 'AWS IAM',
   },
