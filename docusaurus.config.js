@@ -7,8 +7,8 @@ const config = {
   tagline: 'Production-grade DevOps engineering, documented from real systems.',
   favicon: 'img/favicon.ico',
 
-  url: 'https://devopschroniclesgit.github.io',
-  baseUrl: '/devops-chronicles',
+  url: 'https://www.devopschronicles.com',
+  baseUrl: '/',
 
   organizationName: 'devopschroniclesgit',
   projectName: 'devops-chronicles',
