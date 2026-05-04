@@ -577,3 +577,18 @@ body { transition: background-color 0.2s ease, color 0.2s ease; }
   padding-bottom: 12px;
   margin-bottom: 8px;
 }
+/* ── Mobile color mode toggle — ensure it stays visible ── */
+.navbar-sidebar__brand .navbar__item {
+  display: flex !important;
+}
+
+.navbar-sidebar .colorModeToggle_node_modules,
+.navbar-sidebar [class*='colorModeToggle'] {
+  display: flex !important;
+  color: #aab7b8 !important;
+}
+
+.navbar-sidebar [class*='colorModeToggle']:hover {
+  color: var(--dc-orange) !important;
+  background: rgba(255,153,0,0.08) !important;
+}
