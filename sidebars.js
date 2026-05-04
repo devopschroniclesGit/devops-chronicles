@@ -37,7 +37,27 @@ const sidebars = {
       label: 'Projects',
       collapsed: false,
       items: [
-        'projects/finpay/finpay-api',
+        {
+          type: 'category',
+          label: 'FinPay API',
+          collapsed: false,
+          items: [
+            'projects/finpay/finpay-api',
+            {
+              type: 'category',
+              label: 'Monitoring',
+              collapsed: false,
+              items: [
+                'projects/finpay/monitoring/monitoring-overview',
+                'projects/finpay/monitoring/monitoring-instrumentation',
+                'projects/finpay/monitoring/monitoring-alloy',
+                'projects/finpay/monitoring/monitoring-dashboard',
+                'projects/finpay/monitoring/monitoring-security',
+                'projects/finpay/monitoring/monitoring-production',
+              ],
+            },
+          ],
+        },
       ],
     },
     {

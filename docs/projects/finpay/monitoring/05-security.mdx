@@ -1,0 +1,145 @@
+---
+id: monitoring-security
+title: Security & Secret Management
+sidebar_label: Security
+---
+
+import Quiz from '@site/src/components/Quiz';
+
+# Security & Secret Management
+
+Keeping credentials out of git — and what happens when you don't.
+
+## The Problem
+
+Our first push to GitHub was blocked:
+
+```
+remote: - GITHUB PUSH PROTECTION
+remote:   - Push cannot contain secrets
+remote:
+remote:   —— Grafana Cloud API Token ———————————————
+remote:    locations:
+remote:      - commit: 7fbe8cf...
+remote:        path: monitoring/alloy/config.alloy:18
+```
+
+GitHub's push protection scanned our commits and found the Grafana token hardcoded in the Alloy config file.
+
+## Why This Matters
+
+A leaked Grafana token allows anyone to:
+- Push arbitrary metrics to your Grafana Cloud account
+- Exhaust your free tier limits
+- Pollute your dashboards with fake data
+
+## The Fix — env() Injection
+
+Alloy supports reading values from environment variables at runtime:
+
+```alloy title="monitoring/alloy/config.alloy"
+basic_auth {
+  username = "3163626"
+  // highlight-next-line
+  password = env("GRAFANA_TOKEN")
+}
+```
+
+The token never appears in the file — Alloy reads it from the environment when it starts.
+
+## File Structure
+
+```
+monitoring/alloy/
+├── config.alloy       ← committed — no secrets
+├── .env               ← NOT committed — real token
+└── .env.example       ← committed — placeholder only
+```
+
+**.env.example** (commit this):
+```env
+GRAFANA_TOKEN=your_grafana_token_here
+```
+
+**.env** (never commit):
+```env
+GRAFANA_TOKEN=glc_eyJvIjoiMTc1...
+```
+
+## Add to .gitignore
+
+```bash
+echo "monitoring/alloy/.env" >> .gitignore
+```
+
+## Running Alloy With the Token
+
+```bash
+source monitoring/alloy/.env
+sudo -E alloy run /etc/alloy/config.alloy
+```
+
+The `-E` flag passes environment variables through to sudo.
+
+## The Git History Problem
+
+:::caution Challenge Faced
+When we tried `git commit --amend` after the blocked push, GitHub still rejected it. The token existed in **two separate commits** in git history — amend only rewrites the latest commit. We had to use `git reset HEAD~2` to rewind history before those commits, then recommit cleanly. This taught us that git history is immutable — secrets must never enter commits in the first place.
+:::
+
+## Recovery Steps We Used
+
+```bash
+# Reset back before the bad commits
+git reset HEAD~2
+
+# Recommit cleanly — config uses env() now
+git add monitoring/alloy/config.alloy monitoring/alloy/.env.example
+git commit -m "feat(monitoring): add Grafana Alloy config with env-based token injection"
+
+# Force push the rewritten history
+git push origin monitoring/grafana-setup --force
+```
+
+## Best Practices
+
+| Practice | Why |
+|---|---|
+| Never hardcode tokens | Git history is permanent |
+| Use `.env.example` | Documents what variables are needed |
+| Add `.env` to `.gitignore` | Prevents accidental commits |
+| Use `env()` in config files | Tokens stay out of version control |
+| Rotate tokens if exposed | Assume a leaked token is compromised |
+
+<Quiz questions={[
+  {
+    question: "Why can't you remove a secret from git history with just git commit --amend?",
+    options: [
+      "git commit --amend doesn't work for secrets",
+      "amend only rewrites the latest commit — earlier commits still contain the secret in history",
+      "GitHub prevents amending commits",
+      "You need admin rights to amend"
+    ],
+    answer: 1
+  },
+  {
+    question: "What is the correct way to store sensitive credentials for a tool like Grafana Alloy?",
+    options: [
+      "Hardcode them in the config file",
+      "Store them in a public .env file",
+      "Use environment variables injected at runtime — commit only a .env.example with placeholders",
+      "Encrypt them with base64 in the config"
+    ],
+    answer: 2
+  },
+  {
+    question: "What does GitHub Push Protection do?",
+    options: [
+      "Prevents force pushes to main",
+      "Scans commits for known secret patterns and blocks pushes that contain them",
+      "Requires two-factor authentication for pushes",
+      "Prevents pushes from unverified accounts"
+    ],
+    answer: 1
+  }
+]} />

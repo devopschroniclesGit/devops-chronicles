@@ -1,0 +1,157 @@
+---
+id: monitoring-dashboard
+title: Grafana Dashboard
+sidebar_label: Grafana Dashboard
+---
+
+import Quiz from '@site/src/components/Quiz';
+
+# Grafana Dashboard
+
+Building a 6-panel production dashboard for FinPay using PromQL.
+
+## Dashboard Overview
+
+| Panel | Query Type | Why It Matters |
+|---|---|---|
+| CPU Usage | Counter → rate() | Detect CPU spikes from traffic or attacks |
+| Memory Usage | Gauge | Detect memory leaks over time |
+| HTTP Request Rate | Counter → rate() | Baseline traffic, detect spikes |
+| HTTP Error Rate | Counter → rate() + filter | Detect attacks, broken deployments |
+| Response Time P95 | Histogram quantile | Real user experience — not averages |
+| Event Loop Lag | Gauge | Node.js health — blocking operations |
+
+## Panel 1 — CPU Usage
+
+```promql
+rate(process_cpu_seconds_total{job="prometheus.scrape.finpay_api"}[1m])
+```
+
+- **Unit:** `percent (0.0-1.0)`
+- **Why `rate()`:** CPU seconds is a counter — it only increases. `rate()` converts it to CPU usage per second
+- **Why `[1m]`:** Look at the last 1 minute to calculate the rate
+
+## Panel 2 — Memory Usage
+
+```promql
+process_resident_memory_bytes{job="prometheus.scrape.finpay_api"}
+```
+
+- **Unit:** `bytes(IEC)` — auto-formats as MiB/GiB
+- **Why no `rate()`:** Memory is a gauge — it already represents the current value
+- **Why resident memory:** RSS is actual RAM in use. Virtual memory is misleadingly large
+
+## Panel 3 — HTTP Request Rate
+
+```promql
+rate(http_requests_total{job="prometheus.scrape.finpay_api"}[1m])
+```
+
+- **Unit:** `requests/sec`
+- **What you'll see:** Multiple lines — one per route/status code combination
+- **Why this matters:** Establishes your normal traffic baseline
+
+## Panel 4 — HTTP Error Rate
+
+```promql
+rate(http_requests_total{job="prometheus.scrape.finpay_api", status_code=~"4..|5.."}[1m])
+```
+
+- **Unit:** `requests/sec`
+- **`=~`** means regex match — `4..` matches any 4xx, `5..` matches any 5xx
+- **"No data" is good news** — zero errors
+
+### What errors mean for FinPay
+
+| Status | Meaning |
+|---|---|
+| `401` spikes | Brute force attack on login |
+| `429` spikes | Rate limiter blocking repeat offenders |
+| `500` spikes | Bug in business logic |
+| `400` spikes | Bad client requests / API misuse |
+
+## Panel 5 — Response Time P95
+
+```promql
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="prometheus.scrape.finpay_api"}[1m]))
+```
+
+- **Unit:** `seconds (s)`
+- **P95 means:** 95% of requests complete under this time
+- **Why not average:** Average hides pain. P95 exposes the worst 5% of users
+
+## Panel 6 — Event Loop Lag
+
+```promql
+nodejs_eventloop_lag_seconds{job="prometheus.scrape.finpay_api"}
+```
+
+- **Unit:** `seconds (s)`
+- **Normal:** `0–10ms`
+- **Warning:** `10–100ms`
+- **Incident:** `100ms+`
+
+Node.js is single-threaded. High event loop lag means all users are waiting behind a blocked operation.
+
+## Dashboard as Code
+
+Export your dashboard as JSON for version control:
+
+1. Open dashboard → **Share** → **Export**
+2. Toggle **"Export for sharing externally"** ON
+3. Save as `monitoring/dashboards/finpay-api-dashboard.json`
+4. Commit to git
+
+This means anyone can import the exact dashboard into their own Grafana instance.
+
+## Production Results
+
+After pointing Alloy at the Railway production URL:
+
+- **CPU:** 0.3% at idle — stable
+- **Memory:** 96–104 MiB — normal warm-up
+- **P95 Response Time:** 8ms — excellent
+- **Error Rate:** 0 req/s — clean
+
+<Quiz questions={[
+  {
+    question: "Why do we monitor P95 response time instead of average response time?",
+    options: [
+      "P95 is easier to calculate",
+      "Average hides outliers — P95 shows that 95% of users get responses under that time, exposing the worst 5%",
+      "Grafana only supports P95",
+      "Average response time is always zero"
+    ],
+    answer: 1
+  },
+  {
+    question: "What does an HTTP Error Rate panel showing 'No data' indicate in a healthy system?",
+    options: [
+      "The monitoring is broken",
+      "The query is wrong",
+      "Zero errors are occurring — this is good news",
+      "The panel needs to be refreshed"
+    ],
+    answer: 2
+  },
+  {
+    question: "What is Event Loop Lag and why does it matter for a payment API?",
+    options: [
+      "Time between browser requests — irrelevant for APIs",
+      "How long tasks wait in the Node.js queue — high lag means all users are delayed regardless of their request",
+      "Network latency between Railway and Upstash",
+      "Time for a database transaction to complete"
+    ],
+    answer: 1
+  },
+  {
+    question: "What PromQL function finds the 99th percentile of a histogram metric?",
+    options: [
+      "rate(metric[1m])",
+      "avg(metric)",
+      "histogram_quantile(0.99, rate(metric_bucket[1m]))",
+      "max(metric)"
+    ],
+    answer: 2
+  }
+]} />

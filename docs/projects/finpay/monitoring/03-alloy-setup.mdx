@@ -1,0 +1,214 @@
+---
+id: monitoring-alloy
+title: Grafana Alloy Setup
+sidebar_label: Grafana Alloy Setup
+---
+
+import Quiz from '@site/src/components/Quiz';
+
+# Grafana Alloy Setup
+
+Grafana Alloy is a lightweight metrics agent that scrapes your `/metrics` endpoint and pushes data to Grafana Cloud in the correct Prometheus protobuf format.
+
+## Why Alloy Instead of Direct Push?
+
+We initially tried pushing metrics directly from the app using `axios`. This failed because:
+
+1. Grafana Cloud's remote write endpoint requires **Prometheus protobuf format** — not plain text
+2. Node.js timed out on IPv6 connections before falling back to IPv4
+
+Alloy handles both problems automatically.
+
+## Install Grafana Alloy
+
+```bash
+# Add Grafana RPM repo
+sudo dnf install -y gpg
+wget -q -O gpg.key https://rpm.grafana.com/gpg.key
+sudo rpm --import gpg.key
+
+sudo tee /etc/yum.repos.d/grafana.repo << 'EOF'
+[grafana]
+name=grafana
+baseurl=https://rpm.grafana.com
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://rpm.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+EOF
+
+sudo dnf install -y alloy
+alloy --version
+```
+
+## Create the Alloy Config
+
+Create `/etc/alloy/config.alloy`:
+
+```alloy
+// Scrape finpay-api metrics
+prometheus.scrape "finpay_api" {
+  targets = [
+    { __address__ = "finpay-api-production.up.railway.app" },
+  ]
+  metrics_path    = "/metrics"
+  scheme          = "https"
+  scrape_interval = "15s"
+  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+}
+
+// Push to Grafana Cloud
+prometheus.remote_write "grafana_cloud" {
+  endpoint {
+    url = "https://prometheus-prod-XX-prod-us-east-3.grafana.net/api/prom/push"
+
+    basic_auth {
+      username = "YOUR_PROMETHEUS_INSTANCE_ID"
+      password = env("GRAFANA_TOKEN")
+    }
+  }
+
+  external_labels = {
+    job         = "finpay-api",
+    instance    = "finpay-api-production.up.railway.app",
+    environment = "production",
+  }
+}
+```
+
+:::info Finding Your Credentials
+- **Prometheus URL** — Grafana Cloud → your stack → Prometheus → Details
+- **Instance ID (username)** — shown as "User" on the Prometheus data source settings page
+- **Token** — Grafana Cloud → Access Policies → create token with `metrics:write` scope
+:::
+
+## Token Setup
+
+Create `monitoring/alloy/.env` (never commit this):
+
+```env
+GRAFANA_TOKEN=glc_your_token_here
+```
+
+Add to `.gitignore`:
+
+```bash
+echo "monitoring/alloy/.env" >> .gitignore
+```
+
+Create `monitoring/alloy/.env.example` (commit this):
+
+```env
+GRAFANA_TOKEN=your_grafana_token_here
+```
+
+## Run Alloy
+
+```bash
+source monitoring/alloy/.env
+sudo -E alloy run /etc/alloy/config.alloy
+```
+
+## Verify It's Working
+
+Watch for this in the Alloy output:
+
+```
+level=info msg="Done replaying WAL" duration=...
+```
+
+Followed by **no errors**. Then check Alloy's own metrics:
+
+```bash
+curl http://localhost:12345/metrics | grep "conn_established"
+```
+
+You should see:
+
+```
+net_conntrack_dialer_conn_established_total{dialer_name="prometheus.scrape.finpay_api"} 2
+net_conntrack_dialer_conn_established_total{dialer_name="remote_storage_write_client"} 71
+```
+
+## How to Read Alloy Logs
+
+| What you see | What it means |
+|---|---|
+| `level=info` startup messages | Normal — ignore these |
+| `Done replaying WAL` + silence | ✅ Working perfectly |
+| `401 invalid credentials` | Wrong Instance ID or token |
+| `401 invalid scope` | Token missing `metrics:write` permission |
+| `ETIMEDOUT` | Network/IPv6 issue |
+
+:::caution Challenge Faced
+Authentication errors went through three stages: wrong Instance ID (we used Stack ID instead), missing token scope, then token mismatch after regenerating. Each error taught us a different part of Grafana Cloud's auth model. The Stack ID and Prometheus Instance ID are completely different numbers — always get the Instance ID from the Prometheus data source settings page.
+:::
+
+## Run as a System Service
+
+To keep Alloy running after terminal closes:
+
+```bash
+sudo nano /etc/systemd/system/alloy.service
+```
+
+```ini
+[Unit]
+Description=Grafana Alloy
+After=network.target
+
+[Service]
+Environment=GRAFANA_TOKEN=your_token_here
+ExecStart=/usr/bin/alloy run /etc/alloy/config.alloy
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable alloy
+sudo systemctl start alloy
+```
+
+<Quiz questions={[
+  {
+    question: "What is the difference between a Grafana Stack ID and a Prometheus Instance ID?",
+    options: [
+      "They are the same thing",
+      "Stack ID identifies your Grafana organisation; Instance ID identifies the specific Prometheus datasource",
+      "Instance ID is used for login; Stack ID is for billing",
+      "Stack ID is numeric; Instance ID is alphanumeric"
+    ],
+    answer: 1
+  },
+  {
+    question: "Why did we switch from direct push (axios) to Grafana Alloy?",
+    options: [
+      "Axios is deprecated",
+      "Alloy is cheaper",
+      "The direct push used plain text format; Grafana Cloud requires Prometheus protobuf format",
+      "Alloy supports more programming languages"
+    ],
+    answer: 2
+  },
+  {
+    question: "What does the WAL (Write-Ahead Log) in Alloy do?",
+    options: [
+      "It logs web application errors",
+      "It buffers metrics locally so no data is lost if the remote endpoint is temporarily unreachable",
+      "It stores Grafana dashboard configurations",
+      "It writes application logs to disk"
+    ],
+    answer: 1
+  },
+  {
+    question: "Which scope must be enabled when creating a Grafana Cloud access token for metrics?",
+    options: ["metrics:read", "metrics:write", "prometheus:push", "alloy:write"],
+    answer: 1
+  }
+]} />

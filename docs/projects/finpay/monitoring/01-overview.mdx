@@ -1,0 +1,88 @@
+---
+id: monitoring-overview
+title: Monitoring Overview
+sidebar_label: Overview
+---
+
+import Quiz from '@site/src/components/Quiz';
+
+# FinPay API Monitoring
+
+**Production observability for a fintech payment platform** — built with Grafana Cloud, Prometheus, and Grafana Alloy.
+
+## What We Monitor
+
+FinPay is a production-style payment API built with Node.js, PostgreSQL, and Redis. This monitoring setup tracks every critical component of the system in real time.
+
+| Layer | Technology | What We Monitor |
+|---|---|---|
+| API | Node.js + Express | Request rate, response time, error rate |
+| Runtime | Node.js | CPU, memory, event loop lag |
+| Cache | Redis (Upstash) | Hit/miss ratio, memory |
+| Database | PostgreSQL (Railway) | Query performance |
+| CI/CD | GitHub Actions | Pipeline success/failure |
+| Infrastructure | Railway | Uptime, CPU, memory |
+
+## Architecture
+
+```
+finpay-api (Railway)
+    └── /metrics endpoint (prom-client)
+            ↑
+        Grafana Alloy       ← scrapes every 15s
+            ↓
+    Grafana Cloud           ← stores metrics
+            ↓
+    Grafana Dashboard       ← visualises data
+```
+
+## Stack
+
+- **prom-client** — Prometheus client for Node.js
+- **Grafana Alloy** — lightweight metrics agent
+- **Grafana Cloud** — hosted Prometheus + dashboards
+- **PromQL** — query language for metrics
+
+## Key Insight
+
+> Before adding any monitoring, understand what your app does. Each architectural decision — JWT auth, Redis rate limiting, atomic transactions — should have a corresponding metric that tells you when that component is misbehaving.
+
+This is the difference between generic CPU dashboards and meaningful production observability.
+
+## Monitoring Sections
+
+| Section | What You'll Learn |
+|---|---|
+| [App Instrumentation](./02-instrumentation) | Adding prom-client, exposing /metrics |
+| [Grafana Alloy Setup](./03-alloy-setup) | Installing and configuring the scrape agent |
+| [Grafana Dashboard](./04-dashboard) | Building panels with PromQL |
+| [Security](./05-security) | Keeping secrets out of git |
+| [Production Deployment](./06-production) | Monitoring the live Railway app |
+
+<Quiz questions={[
+  {
+    question: "What is the primary purpose of adding monitoring to a fintech application?",
+    options: [
+      "To make the app look more professional",
+      "To detect and respond to incidents before users are impacted",
+      "To slow down the application intentionally",
+      "To replace logging entirely"
+    ],
+    answer: 1
+  },
+  {
+    question: "Which tool scrapes the /metrics endpoint and pushes data to Grafana Cloud?",
+    options: ["Prometheus Server", "Grafana Agent", "Grafana Alloy", "Datadog"],
+    answer: 2
+  },
+  {
+    question: "Why must you understand the application architecture before setting up monitoring?",
+    options: [
+      "To write better code",
+      "Because each architectural decision needs a corresponding metric",
+      "To reduce cloud costs",
+      "Monitoring works the same regardless of the app"
+    ],
+    answer: 1
+  }
+]} />

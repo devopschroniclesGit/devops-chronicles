@@ -1,0 +1,183 @@
+---
+id: monitoring-instrumentation
+title: App Instrumentation
+sidebar_label: App Instrumentation
+---
+
+import Quiz from '@site/src/components/Quiz';
+
+# App Instrumentation
+
+Adding Prometheus metrics to the FinPay Express API using `prom-client`.
+
+## Install prom-client
+
+```bash
+npm install prom-client
+```
+
+## Create the Metrics Registry
+
+Create `src/config/metrics.js`:
+
+```javascript
+const client = require('prom-client');
+
+const register = new client.Registry();
+
+// Collect default Node.js metrics (CPU, memory, event loop)
+client.collectDefaultMetrics({ register });
+
+// HTTP request duration histogram
+const httpRequestDuration = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds',
+  labelNames: ['method', 'route', 'status_code'],
+  buckets: [0.01, 0.05, 0.1, 0.3, 0.5, 1, 2, 5],
+  registers: [register],
+});
+
+// HTTP request counter
+const httpRequestTotal = new client.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route', 'status_code'],
+  registers: [register],
+});
+
+// Active transactions gauge
+const activeTransactions = new client.Gauge({
+  name: 'finpay_active_transactions',
+  help: 'Number of transactions currently being processed',
+  registers: [register],
+});
+
+module.exports = { register, httpRequestDuration, httpRequestTotal, activeTransactions };
+```
+
+## Metric Types Explained
+
+| Type | Behaviour | Use Case | PromQL |
+|---|---|---|---|
+| **Counter** | Only goes up | Request count, error count | Always use `rate()` |
+| **Gauge** | Up and down | Memory, active connections | Use directly |
+| **Histogram** | Tracks distributions | Response time percentiles | Use `histogram_quantile()` |
+
+:::tip The Golden Rule
+**Counter** → always use `rate()` in PromQL because counters only increase.  
+**Gauge** → use directly because the value represents the current state.
+:::
+
+## Add HTTP Metrics Middleware
+
+Create `src/middleware/metricsMiddleware.js`:
+
+```javascript
+const { httpRequestDuration, httpRequestTotal } = require('../config/metrics');
+
+const metricsMiddleware = (req, res, next) => {
+  const start = Date.now();
+
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000;
+    const route = req.route ? req.route.path : req.path;
+    const labels = {
+      method: req.method,
+      route,
+      status_code: res.statusCode,
+    };
+
+    httpRequestDuration.observe(labels, duration);
+    httpRequestTotal.inc(labels);
+  });
+
+  next();
+};
+
+module.exports = metricsMiddleware;
+```
+
+## Expose the /metrics Endpoint
+
+In `src/app.js`:
+
+```javascript
+const { register } = require('./config/metrics');
+const metricsMiddleware = require('./middleware/metricsMiddleware');
+
+// Mount metrics middleware globally
+app.use(metricsMiddleware);
+
+// Prometheus scrape endpoint
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
+```
+
+## Fix IPv6 Conflict
+
+Add at the very top of `src/server.js`:
+
+```javascript
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
+```
+
+:::caution Challenge Faced
+Node.js attempted connections via IPv6 which had no route to host, while curl silently fell back to IPv4. The `ipv4first` DNS order setting forces all lookups to prefer IPv4. Without this, every outbound request from Node.js times out silently.
+:::
+
+## Verify It Works
+
+```bash
+npm run dev
+curl http://localhost:3000/metrics | head -20
+```
+
+You should see:
+
+```
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total 0.162637
+...
+```
+
+<Quiz questions={[
+  {
+    question: "What is the difference between a Counter and a Gauge in Prometheus?",
+    options: [
+      "Counters are faster than Gauges",
+      "A Counter only goes up; a Gauge can go up and down",
+      "A Gauge only goes up; a Counter can go up and down",
+      "There is no difference"
+    ],
+    answer: 1
+  },
+  {
+    question: "Why do we use rate() when querying a Counter metric in PromQL?",
+    options: [
+      "Because rate() makes the graph prettier",
+      "Because the counter always increases — rate() shows how fast it is increasing per second",
+      "Because Grafana requires rate() for all queries",
+      "To convert bytes to megabytes"
+    ],
+    answer: 1
+  },
+  {
+    question: "What was the root cause of the ETIMEDOUT error when Node.js tried to push metrics?",
+    options: [
+      "The Grafana Cloud API was down",
+      "Wrong API token format",
+      "Node.js was attempting to connect via IPv6 which had no route to host",
+      "The metrics endpoint was not exposed"
+    ],
+    answer: 2
+  },
+  {
+    question: "Which endpoint does Grafana Alloy scrape to collect application metrics?",
+    options: ["/api/v1/health", "/api/v1/metrics", "/metrics", "/prometheus"],
+    answer: 2
+  }
+]} />
