@@ -1,0 +1,218 @@
+---
+title: "Incident: IAM Permission Errors"
+description: IAM errors are rarely what they appear to be. A systematic approach to diagnosing access denied, missing authentication, and the errors that lie.
+tags: [aws, iam, incident, security, troubleshooting]
+---
+
+# Incident: IAM Permission Errors
+
+IAM errors are among the most frustrating to diagnose because the error message often does not tell you what is actually wrong. "Access Denied" can mean five different things. "Unable to locate credentials" can happen even when credentials are present. This guide is a systematic approach to finding the real cause.
+
+## The Error Messages and What They Actually Mean
+
+**`AccessDenied` or `Access Denied`**
+
+The identity making the request is authenticated but does not have permission for this action. The identity could be:
+- An IAM user
+- An IAM role (assumed by EC2, Lambda, ECS, etc.)
+- A federated identity
+- A service principal
+
+The permission could be missing from:
+- The identity's attached policies
+- A resource-based policy (S3 bucket policy, KMS key policy, SQS queue policy)
+- An SCP (Service Control Policy) at the AWS Organization level
+- A permission boundary
+
+**`UnauthorizedAccess`**
+
+Similar to AccessDenied but usually returned by services that use their own authorisation layer (API Gateway, Cognito, etc.).
+
+**`InvalidClientTokenId`**
+
+The access key ID does not exist. Either the key was deleted, it belongs to a different account, or there is a typo.
+
+**`AuthFailure`**
+
+The signature on the request is wrong. Usually caused by a clock skew (your system clock is more than 5 minutes out of sync with AWS), or by incorrectly constructed request signing.
+
+**`ExpiredTokenException`**
+
+The session token has expired. This happens with temporary credentials (assumed roles, instance profiles with short durations). The application needs to refresh its credentials.
+
+**`NoCredentialProviders` / `Unable to locate credentials`**
+
+The SDK cannot find credentials in any of the standard locations. This does not always mean credentials are absent — it often means the SDK is looking in the wrong place.
+
+---
+
+## Immediate Diagnosis
+
+**Step 1 — Confirm which identity is making the request**
+
+This is the most important step and most engineers skip it.
+
+```bash
+# On an EC2 instance or anywhere with AWS CLI
+aws sts get-caller-identity
+```
+```json
+{
+    "UserId": "AROAEXAMPLEID:i-0abc1234",
+    "Account": "123456789012",
+    "Arn": "arn:aws:sts::123456789012:assumed-role/MyRole/i-0abc1234"
+}
+```
+
+This tells you exactly which identity the SDK is using. If you expected it to use `MyRole` and it shows `SomeOtherRole` or a user ARN, the credential chain is not resolving as expected.
+
+**Step 2 — Check what the error actually says**
+
+Turn on debug logging in the AWS CLI:
+```bash
+aws s3 ls s3://my-bucket --debug 2>&1 | grep -i "error\|denied\|auth"
+```
+
+In the SDK, enable debug logging. For Python (boto3):
+```python
+import boto3
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+boto3.set_stream_logger('')
+```
+
+The debug output will show the exact API call, the identity being used, and the full error response from AWS.
+
+**Step 3 — Test the specific action with the specific resource**
+
+```bash
+# Test if the identity can perform the specific action
+aws s3 ls s3://my-bucket/specific-prefix/
+
+# Test with explicit credentials if you suspect the wrong identity
+aws s3 ls s3://my-bucket --profile specific-profile
+```
+
+---
+
+## The Credential Chain
+
+When the AWS SDK looks for credentials, it checks in this order:
+
+```
+1. Environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN)
+2. AWS credentials file (~/.aws/credentials)
+3. AWS config file (~/.aws/config)
+4. Container credential provider (ECS task role)
+5. EC2 Instance Metadata Service (IMDSv1/v2) — instance profile
+```
+
+**The most common mistake:** A developer sets `AWS_ACCESS_KEY_ID` in their environment for local testing, deploys to EC2, and the environment variable is present in the process environment (set in the deploy script or systemd unit). The instance profile would work correctly, but the environment variable takes precedence and the credentials it contains are invalid in production.
+
+```bash
+# On the EC2 instance, check if env vars are set
+env | grep AWS_
+
+# In the systemd service file — these override the instance profile
+cat /etc/systemd/system/myapp.service | grep -i aws
+```
+
+**Fix:** Remove `AWS_ACCESS_KEY_ID` from the environment of anything running on EC2 or ECS. Let the SDK use the instance profile or task role.
+
+---
+
+## The Common IAM Traps
+
+**Trap 1 — The policy looks right but there is a deny somewhere**
+
+An explicit `Deny` in any policy overrides any `Allow`. The sources of denies:
+
+- **SCPs** (Service Control Policies) — applied at the AWS Organization or OU level. Your policy allows the action but an SCP at the organisation level does not. SCPs are invisible to account-level policy tools.
+- **Permission boundaries** — an IAM policy attached to a user or role that defines the maximum permissions. Even if a policy allows S3:PutObject, if the permission boundary does not include it, the action is denied.
+- **Resource-based policies with explicit denies** — S3 bucket policies, KMS key policies, and SQS queue policies can explicitly deny access from specific ARNs.
+
+```bash
+# Simulate what a policy evaluation will produce
+aws iam simulate-principal-policy \
+  --policy-source-arn arn:aws:iam::123456789012:role/MyRole \
+  --action-names s3:GetObject \
+  --resource-arns arn:aws:s3:::my-bucket/my-key
+```
+
+**Trap 2 — The error says AccessDenied but the real problem is the resource does not exist**
+
+S3 returns `AccessDenied` (not `NoSuchKey`) when you try to access an object that does not exist, if you do not have `s3:ListBucket` permission. This is a security feature — it prevents bucket enumeration. But it makes debugging confusing.
+
+If you get `AccessDenied` on `s3:GetObject`:
+1. First confirm the object exists: `aws s3 ls s3://bucket/key`
+2. If `ls` also returns AccessDenied, you are missing `s3:ListBucket`
+3. If `ls` shows the object does not exist, the problem is not IAM
+
+**Trap 3 — KMS key policy is the real gatekeeper**
+
+If an S3 bucket uses KMS encryption, accessing objects requires permission on both the S3 bucket AND the KMS key. An IAM policy that grants `s3:GetObject` is not enough — the KMS key policy must also grant `kms:Decrypt` to the identity.
+
+```bash
+# Check if a bucket is KMS encrypted
+aws s3api get-bucket-encryption --bucket my-bucket
+
+# Check if your identity can use the key
+aws kms describe-key --key-id arn:aws:kms:us-east-1:123456789012:key/key-id
+aws kms get-key-policy --key-id key-id --policy-name default
+```
+
+**Trap 4 — Cross-account access**
+
+Accessing a resource in Account B from Account A requires:
+- Account A's identity has permission to perform the action
+- Account B's resource policy explicitly allows Account A's identity
+
+One without the other is not enough. Both must be true.
+
+**Trap 5 — IMDSv2 is required but the application uses IMDSv1**
+
+AWS now defaults new EC2 instances to require IMDSv2 (token-based). Applications using older SDK versions or custom credential fetching code that uses IMDSv1 will fail to retrieve instance profile credentials.
+
+```bash
+# Check if IMDSv2 is required on this instance
+aws ec2 describe-instances \
+  --instance-ids i-xxxxxxxxx \
+  --query 'Reservations[0].Instances[0].MetadataOptions'
+
+# Test IMDSv2 manually
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/iam/security-credentials/
+```
+
+---
+
+## The Fastest Path to an Answer
+
+When you are stuck, use IAM Policy Simulator or CloudTrail — not guessing.
+
+**IAM Policy Simulator** (AWS Console → IAM → Policy Simulator):
+Simulates whether a specific identity can perform a specific action on a specific resource. It accounts for attached policies, inline policies, and permission boundaries. It does NOT account for SCPs or resource-based policies.
+
+**CloudTrail** — the ground truth:
+```bash
+# Find the actual denied event
+aws cloudtrail lookup-events \
+  --lookup-attributes AttributeKey=EventName,AttributeValue=GetObject \
+  --start-time 2026-04-30T10:00:00Z \
+  --end-time 2026-04-30T11:00:00Z \
+  | jq '.Events[] | select(.CloudTrailEvent | fromjson | .errorCode == "AccessDenied")'
+```
+
+CloudTrail will show you the exact identity, the exact action, the exact resource, and the exact error code. If you can reproduce the error and then check CloudTrail within 15 minutes, you will have a definitive answer.
+
+---
+
+## Prevention
+
+- **Never embed access keys in application code or environment variables on EC2/ECS.** Use instance profiles and task roles.
+- **Use `aws sts get-caller-identity` as the first line of your debugging.** Know which identity you are before investigating why it cannot do something.
+- **Enable CloudTrail in all regions and all accounts.** IAM errors without CloudTrail are guesswork.
+- **Test resource-based policies explicitly.** The IAM Policy Simulator does not test S3 bucket policies or KMS key policies — you must test these separately.
