@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -7,19 +7,17 @@ import styles from './index.module.css';
 const courses = [
   {
     title: 'DevOps Lab Engineering',
-    href: '/docs/courses/devops-lab/module-1-virtualization-architecture',
+    href: '/devops-chronicles/docs/courses/devops-lab/module-1-virtualization-architecture',
     modules: 6,
-    description:
-      'Build a production-style home lab from scratch. Virtualisation, network segmentation, system hardening, storage engineering, and observability.',
+    description: 'Build a production-style home lab from scratch. Virtualisation, network segmentation, system hardening, storage engineering, and observability.',
     icon: '🖥️',
     level: 'Beginner → Intermediate',
   },
   {
     title: 'Cloud Infrastructure Engineering',
-    href: '/docs/courses/cloud-infra/intro',
+    href: '/devops-chronicles/docs/courses/cloud-infra/intro',
     modules: 5,
-    description:
-      'Design and operate production AWS infrastructure. VPC design, IAM strategy, load balancing, Terraform, and failure simulation.',
+    description: 'Design and operate production AWS infrastructure. VPC design, IAM strategy, load balancing, Terraform, and failure simulation.',
     icon: '☁️',
     level: 'Intermediate',
   },
@@ -28,26 +26,60 @@ const courses = [
 const projects = [
   {
     title: 'AWS Elastic Beanstalk Deployment',
-    href: '/docs/projects/case-studies/aws-elastic-beanstalk',
+    href: '/devops-chronicles/docs/projects/case-studies/aws-elastic-beanstalk',
     description: 'End-to-end deployment of a Node.js app with auto scaling and zero-downtime deploys.',
     tag: 'Case Study',
   },
   {
     title: 'Streamlining Deployment with CodeDeploy',
-    href: '/docs/projects/case-studies/aws-codedeploy',
+    href: '/devops-chronicles/docs/projects/case-studies/aws-codedeploy',
     description: 'Blue/green deployments, lifecycle hooks, and automatic rollback on failure.',
     tag: 'Case Study',
   },
 ];
 
-const resources = [
-  { title: 'Lambda + S3 Trigger', href: '/docs/resources/aws/lambda-s3-trigger', tag: 'AWS' },
-  { title: 'Understanding Database Types', href: '/docs/resources/databases/understanding-database-types', tag: 'Architecture' },
-  { title: 'CI/CD Pipeline from Scratch', href: '/docs/resources/cicd/cicd-pipeline-from-scratch', tag: 'CI/CD' },
-  { title: 'Microservices at Scale', href: '/docs/resources/containers/microservices-scalable-systems', tag: 'Containers' },
+const decisionFrameworks = [
+  {
+    title: 'EC2 vs Lambda vs ECS',
+    href: '/devops-chronicles/docs/resources/decision-frameworks/compute-ec2-lambda-ecs',
+    description: 'Choosing compute based on runtime, state, and operational burden — not feature lists.',
+    tag: 'Compute',
+  },
+  {
+    title: 'S3 vs EBS vs EFS',
+    href: '/devops-chronicles/docs/resources/decision-frameworks/storage-s3-ebs-efs',
+    description: 'Three storage services that solve completely different problems at different layers.',
+    tag: 'Storage',
+  },
+  {
+    title: 'RDS vs Aurora vs DynamoDB',
+    href: '/devops-chronicles/docs/resources/decision-frameworks/database-rds-dynamodb-aurora',
+    description: 'The most consequential database choice you will make — and how to get it right.',
+    tag: 'Database',
+  },
 ];
 
-// Hook: adds .visible class when element enters viewport
+const incidentPatterns = [
+  {
+    title: 'Disk Full',
+    href: '/devops-chronicles/docs/resources/incident-patterns/disk-full',
+    description: 'What it looks like, the deleted-file trap most engineers miss, and how to recover cleanly.',
+    tag: 'Storage',
+  },
+  {
+    title: 'OOM Killer',
+    href: '/devops-chronicles/docs/resources/incident-patterns/oom-killer',
+    description: 'Your process vanishes with no error. How to find the kill, understand the score, and prevent it.',
+    tag: 'Memory',
+  },
+  {
+    title: 'IAM Permission Errors',
+    href: '/devops-chronicles/docs/resources/incident-patterns/iam-permission-errors',
+    description: 'Access Denied can mean five different things. A systematic approach to finding the real cause.',
+    tag: 'AWS IAM',
+  },
+];
+
 function useScrollReveal(selector) {
   useEffect(() => {
     const elements = document.querySelectorAll(selector);
@@ -56,7 +88,7 @@ function useScrollReveal(selector) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add(styles.visible);
-            observer.unobserve(entry.target); // animate once only
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -69,42 +101,28 @@ function useScrollReveal(selector) {
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
-
-  // Trigger scroll reveal for cards and sections
   useScrollReveal(`.${styles.fadeUp}`);
 
   return (
-    <Layout
-      title="Home"
-      description="Production-grade DevOps engineering — Linux systems, cloud infrastructure, automation, and CI/CD documented from real constraints.">
+    <Layout title="Home" description="Production-grade DevOps engineering — Linux systems, cloud infrastructure, automation, and CI/CD documented from real constraints.">
 
       {/* ── Hero ── */}
       <div className={styles.hero}>
         <div className={styles.heroInner}>
-          <div className={`${styles.heroBadge} ${styles.heroAnimate1}`}>
-            DevOps Engineering
-          </div>
+          <div className={`${styles.heroBadge} ${styles.heroAnimate1}`}>DevOps Engineering</div>
           <h1 className={styles.heroTitle}>
             <span className={styles.heroAnimate2}>Real Systems.</span>
             <span className={styles.heroAnimate3}>Real Constraints.</span>
             <span className={styles.heroAnimate4}>Real Engineering.</span>
           </h1>
           <p className={`${styles.heroSub} ${styles.heroAnimate5}`}>
-            DevOps Chronicles documents production infrastructure — Linux systems
-            administration, cloud architecture, automation, and CI/CD pipelines built
-            from operating real systems under real pressure.
+            DevOps Chronicles documents production infrastructure — Linux systems administration, cloud architecture, automation, and CI/CD pipelines built from operating real systems under real pressure.
           </p>
           <div className={`${styles.heroCta} ${styles.heroAnimate6}`}>
-            <Link className={styles.btnPrimary} to="/docs/courses/devops-lab/module-1-virtualization-architecture">
-              Start with the Lab Course
-            </Link>
-            <Link className={styles.btnOutline} to="/docs/about">
-              About this site
-            </Link>
+            <Link className={styles.btnPrimary} to="/docs/courses/devops-lab/module-1-virtualization-architecture">Start with the Lab Course</Link>
+            <Link className={styles.btnOutline} to="/docs/about">About this site</Link>
           </div>
         </div>
-
-        {/* Terminal */}
         <div className={`${styles.terminal} ${styles.heroAnimate5}`}>
           <div className={styles.terminalBar}>
             <span className={styles.dot} style={{ background: '#ff5f57' }} />
@@ -131,12 +149,7 @@ export default function Home() {
           <h2 className={`${styles.sectionTitle} ${styles.fadeUp}`}>Learn from the ground up</h2>
           <div className={styles.courseGrid}>
             {courses.map((c, i) => (
-              <Link
-                key={c.href}
-                to={c.href}
-                className={`${styles.courseCard} ${styles.fadeUp}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
+              <Link key={c.href} to={c.href} className={`${styles.courseCard} ${styles.fadeUp}`} style={{ transitionDelay: `${i * 80}ms` }}>
                 <div className={styles.courseIcon}>{c.icon}</div>
                 <div className={styles.courseContent}>
                   <div className={styles.courseMeta}>
@@ -160,12 +173,7 @@ export default function Home() {
           <h2 className={`${styles.sectionTitle} ${styles.fadeUp}`}>Production case studies</h2>
           <div className={styles.projectGrid}>
             {projects.map((p, i) => (
-              <Link
-                key={p.href}
-                to={p.href}
-                className={`${styles.projectCard} ${styles.fadeUp}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
+              <Link key={p.href} to={p.href} className={`${styles.projectCard} ${styles.fadeUp}`} style={{ transitionDelay: `${i * 80}ms` }}>
                 <span className={styles.projectTag}>{p.tag}</span>
                 <h3 className={styles.projectTitle}>{p.title}</h3>
                 <p className={styles.projectDesc}>{p.description}</p>
@@ -175,22 +183,38 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── Resources ── */}
+      {/* ── Decision Frameworks ── */}
       <div className={styles.section}>
         <div className={styles.sectionInner}>
           <div className={`${styles.sectionLabel} ${styles.fadeUp}`}>Resources</div>
-          <h2 className={`${styles.sectionTitle} ${styles.fadeUp}`}>Reference guides</h2>
-          <div className={styles.resourceList}>
-            {resources.map((r, i) => (
-              <Link
-                key={r.href}
-                to={r.href}
-                className={`${styles.resourceRow} ${styles.fadeUp}`}
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                <span className={styles.resourceTag}>{r.tag}</span>
-                <span className={styles.resourceTitle}>{r.title}</span>
-                <span className={styles.resourceArrow}>→</span>
+          <h2 className={`${styles.sectionTitle} ${styles.fadeUp}`}>Decision frameworks</h2>
+          <p className={`${styles.sectionSub} ${styles.fadeUp}`}>Architectural reasoning that certification prep skips. When to use what — and why.</p>
+          <div className={styles.resourceCardGrid}>
+            {decisionFrameworks.map((r, i) => (
+              <Link key={r.href} to={r.href} className={`${styles.resourceCard} ${styles.fadeUp}`} style={{ transitionDelay: `${i * 80}ms` }}>
+                <span className={styles.resourceCardTag}>{r.tag}</span>
+                <h3 className={styles.resourceCardTitle}>{r.title}</h3>
+                <p className={styles.resourceCardDesc}>{r.description}</p>
+                <span className={styles.resourceCardArrow}>Read →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Incident Patterns ── */}
+      <div className={`${styles.section} ${styles.sectionAlt}`}>
+        <div className={styles.sectionInner}>
+          <div className={`${styles.sectionLabel} ${styles.fadeUp}`}>Resources</div>
+          <h2 className={`${styles.sectionTitle} ${styles.fadeUp}`}>Incident patterns</h2>
+          <p className={`${styles.sectionSub} ${styles.fadeUp}`}>Real failure modes — what they look like, why they happen, how to recover.</p>
+          <div className={styles.resourceCardGrid}>
+            {incidentPatterns.map((r, i) => (
+              <Link key={r.href} to={r.href} className={`${styles.resourceCard} ${styles.incidentCard} ${styles.fadeUp}`} style={{ transitionDelay: `${i * 80}ms` }}>
+                <span className={`${styles.resourceCardTag} ${styles.incidentTag}`}>{r.tag}</span>
+                <h3 className={styles.resourceCardTitle}>{r.title}</h3>
+                <p className={styles.resourceCardDesc}>{r.description}</p>
+                <span className={styles.resourceCardArrow}>Read →</span>
               </Link>
             ))}
           </div>
