@@ -514,13 +514,74 @@ html[data-theme='light'] .menu__link:hover { color: #16191f; background: #eaeded
 body { transition: background-color 0.2s ease, color 0.2s ease; }
 
 /* ═══════════════════════════════════════════════════════════
-   MOBILE NAVBAR SIDEBAR
+   MOBILE NAVBAR SIDEBAR — adapts to light/dark mode
    ═══════════════════════════════════════════════════════════ */
 
-/* Sidebar backdrop/container */
 .navbar-sidebar {
-  background: #0f1b2d !important;
-  border-right: 1px solid #232f3e;
+  background: var(--ifm-background-color) !important;
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.navbar-sidebar__brand {
+  background: var(--ifm-navbar-background-color) !important;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.navbar-sidebar__back {
+  color: var(--ifm-font-color-base) !important;
+  font-size: 14px;
+}
+
+.navbar-sidebar .menu__link {
+  color: var(--ifm-font-color-base) !important;
+  font-size: 15px;
+  padding: 10px 16px;
+}
+
+.navbar-sidebar .menu__link:hover {
+  background: var(--ifm-menu-color-background-hover) !important;
+  color: var(--ifm-font-color-base) !important;
+}
+
+.navbar-sidebar .menu__link--active {
+  color: var(--ifm-color-primary) !important;
+  border-left-color: var(--ifm-color-primary) !important;
+  background: var(--ifm-menu-color-background-active) !important;
+}
+
+.navbar-sidebar .menu__list-item-collapsible .menu__link--sublist {
+  color: var(--ifm-color-emphasis-400) !important;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.navbar-sidebar .menu__caret::before,
+.navbar-sidebar .menu__link--sublist-caret::after {
+  border-color: var(--ifm-color-emphasis-400) transparent transparent !important;
+}
+
+.navbar-sidebar__close {
+  color: var(--ifm-font-color-base) !important;
+}
+
+.navbar-sidebar .navbar__items {
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.navbar-sidebar__brand .navbar__item {
+  display: flex !important;
+}
+
+.navbar-sidebar [class*='colorModeToggle'] {
+  display: flex !important;
+  color: var(--ifm-color-emphasis-400) !important;
+}
+
+.navbar-sidebar [class*='colorModeToggle']:hover {
+  color: var(--ifm-color-primary) !important;
+  background: var(--dc-orange-dim) !important;
 }
 
 /* Header bar ("Back to main menu" row) */
