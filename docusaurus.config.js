@@ -7,6 +7,8 @@ const config = {
   tagline: 'Production-grade DevOps engineering, documented from real systems.',
   favicon: 'img/favicon.ico',
 
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
   url: 'https://www.devopschronicles.com',
   baseUrl: '/',
 

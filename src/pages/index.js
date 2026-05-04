@@ -7,7 +7,7 @@ import styles from './index.module.css';
 const courses = [
   {
     title: 'DevOps Lab Engineering',
-    href: '/devops-chronicles/docs/courses/devops-lab/module-1-virtualization-architecture',
+    href: '/docs/courses/devops-lab/module-1-virtualization-architecture',
     modules: 6,
     description:
       'Build a production-style home lab from scratch. Virtualisation, network segmentation, system hardening, storage engineering, and observability.',
@@ -16,7 +16,7 @@ const courses = [
   },
   {
     title: 'Cloud Infrastructure Engineering',
-    href: '/devops-chronicles/docs/courses/cloud-infra/intro',
+    href: '/docs/courses/cloud-infra/intro',
     modules: 5,
     description:
       'Design and operate production AWS infrastructure. VPC design, IAM strategy, load balancing, Terraform, and failure simulation.',
@@ -28,23 +28,23 @@ const courses = [
 const projects = [
   {
     title: 'AWS Elastic Beanstalk Deployment',
-    href: '/devops-chronicles/docs/projects/case-studies/aws-elastic-beanstalk',
+    href: '/docs/projects/case-studies/aws-elastic-beanstalk',
     description: 'End-to-end deployment of a Node.js app with auto scaling and zero-downtime deploys.',
     tag: 'Case Study',
   },
   {
     title: 'Streamlining Deployment with CodeDeploy',
-    href: '/devops-chronicles/docs/projects/case-studies/aws-codedeploy',
+    href: '/docs/projects/case-studies/aws-codedeploy',
     description: 'Blue/green deployments, lifecycle hooks, and automatic rollback on failure.',
     tag: 'Case Study',
   },
 ];
 
 const resources = [
-  { title: 'Lambda + S3 Trigger', href: '/devops-chronicles/docs/resources/aws/lambda-s3-trigger', tag: 'AWS' },
-  { title: 'Understanding Database Types', href: '/devops-chronicles/docs/resources/databases/understanding-database-types', tag: 'Architecture' },
-  { title: 'CI/CD Pipeline from Scratch', href: '/devops-chronicles/docs/resources/cicd/cicd-pipeline-from-scratch', tag: 'CI/CD' },
-  { title: 'Microservices at Scale', href: '/devops-chronicles/docs/resources/containers/microservices-scalable-systems', tag: 'Containers' },
+  { title: 'Lambda + S3 Trigger', href: '/docs/resources/aws/lambda-s3-trigger', tag: 'AWS' },
+  { title: 'Understanding Database Types', href: '/docs/resources/databases/understanding-database-types', tag: 'Architecture' },
+  { title: 'CI/CD Pipeline from Scratch', href: '/docs/resources/cicd/cicd-pipeline-from-scratch', tag: 'CI/CD' },
+  { title: 'Microservices at Scale', href: '/docs/resources/containers/microservices-scalable-systems', tag: 'Containers' },
 ];
 
 // Hook: adds .visible class when element enters viewport
