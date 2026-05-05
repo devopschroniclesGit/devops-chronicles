@@ -49,7 +49,7 @@ const config = {
         respectPrefersColorScheme: true,
       },
 
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/social-card.jpg',
 
       navbar: {
         title: 'DevOps chronicles',
