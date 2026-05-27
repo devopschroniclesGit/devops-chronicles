@@ -7,7 +7,7 @@ tags: [projects, nodejs, postgresql, redis, docker, api, fintech]
 
 # FinPay API
 
-**[View Live Docs](https://devopschroniclesgit.github.io/finpay-api/)** &nbsp;|&nbsp;
+**[View Live Docs](#)** &nbsp;|&nbsp;
 **[GitHub Repository](https://github.com/devopschroniclesGit/finpay-api)**
 
 FinPay is a production-style payment API built with Node.js, PostgreSQL, and Redis.
