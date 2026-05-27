@@ -1,5 +1,5 @@
 // @ts-check
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -7,8 +7,6 @@ const config = {
   tagline: 'Production-grade DevOps engineering, documented from real systems.',
   favicon: 'img/favicon.ico',
 
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   url: 'https://www.devopschronicles.com',
   baseUrl: '/',
 
@@ -33,6 +31,18 @@ const config = {
           editUrl: 'https://github.com/devopschroniclesgit',
         },
         blog: false,
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: [
+            '/docs/tags/**',
+            '/markdown-page',
+            '/docs/projects/monitoring/',
+            '/docs/projects/security/',
+            '/docs/projects/case-studies/',
+          ],
+          filename: 'sitemap.xml',
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
