@@ -53,6 +53,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      gtag: {
+        trackingID: 'G-HP9255E0CQ',
+        anonymizeIP: true,
+      },
+    
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
